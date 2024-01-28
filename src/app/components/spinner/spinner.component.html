@@ -1,0 +1,7 @@
+@if (isLoading$ | async) {
+<div class="c-spinner__container">
+  <div class="c-spinner__loader"></div>
+</div>
+}
+
+<p-blockUI [blocked]="$any(isLoading$ | async)"></p-blockUI>

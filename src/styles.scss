@@ -1,1 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/styles/variables.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  // TODO: add font family
+  font-weight: normal;
+  font-style: normal;
+
+  a {
+    text-decoration: none;
+  }
+
+  main {
+    // padding: 10px;
+    overflow-y: auto;
+
+    // @media #{$tablet},
+    // #{$desktop} {
+    //   padding: 32px 20px 0;
+    // }
+  }
+}
+
+ul,
+li,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  // scrollbar-height: thin;
+  scrollbar-color: $grey-color-1 $grey-color-7;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: $grey-color-7;
+}
+
+*::-webkit-scrollbar-thumb {
+  width: 8px;
+  height: 8px;
+  background-color: $grey-color-1;
+  border-radius: 6px;
+}

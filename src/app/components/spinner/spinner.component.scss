@@ -1,0 +1,41 @@
+@import "variables.scss";
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.c-spinner {
+  &__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2001;
+    display: flex;
+    width: 102%;
+    height: 100%;
+    margin: 0 -24px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  &__loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    border: 6px solid $yellow-color;
+    border-top: 6px solid $red-color;
+    border-radius: 50%;
+    animation: spin 1s ease-in-out infinite;
+    animation: spin 1s linear infinite;
+  }
+}

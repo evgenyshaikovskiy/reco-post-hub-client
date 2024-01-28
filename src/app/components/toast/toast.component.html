@@ -1,0 +1,12 @@
+<p-toast class="toast" position="bottom-right">
+  <ng-template let-message pTemplate="message">
+    <div class="toast-content">
+      <div class="toast-content__messages">
+        <h4 [innerHTML]="message.summary"></h4>
+        @if(message.detail) {
+        <p [innerHTML]="message.detail"></p>
+        }
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
