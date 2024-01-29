@@ -1,0 +1,55 @@
+@import 'variables';
+@import 'mixins';
+
+@include modify-position-for-floating-labels;
+
+.sign-up-page {
+  @include flex-column-align-center;
+  gap: 1rem;
+
+  &__header {
+    @include flex-column-align-center;
+    &__large_text {
+      padding: 1rem;
+      background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+      @include gradient-text;
+      @include text-size-weight-height(1.75rem, 600, 100%);
+    }
+
+    &__medium_text {
+      @include text-size-weight-height(2rem, 700, 120%);
+    }
+
+    &__sign-in_link {
+      text-decoration: none;
+      padding: 1rem;
+      @include text-size-weight-height(1rem, 600, 120%);
+
+      &:hover {
+        cursor: pointer;
+        color: $red-color;
+      }
+    }
+
+    hr {
+      width: 100%;
+      height: 0.1rem;
+      background-color: $gray-color;
+      opacity: 0.2;
+    }
+  }
+
+  &__form {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+
+    @include floating-input-label-styles;
+  }
+}
+
+.form__button {
+  margin-top: 1rem;
+}

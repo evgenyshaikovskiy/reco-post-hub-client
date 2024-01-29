@@ -1,0 +1,147 @@
+<div class="sign-up-page">
+  <!-- TODO: fix page styles -->
+  <div class="sign-up-page__header">
+    <h1 class="sign-up-page__header__large_text">Sign up for more features</h1>
+    <hr class="delimiter" />
+    <p class="sign-up-page__header__medium_text">OR</p>
+    <hr class="delimiter" />
+    <a
+      class="sign-up-page__header__sign-in_link"
+      (click)="_navigateToSignIn()"
+      tabindex="0"
+      (keydown.enter)="_navigateToSignIn()"
+      >Sign in if you already have account</a
+    >
+  </div>
+  <form
+    class="sign-up-page__form"
+    [formGroup]="form"
+    (ngSubmit)="onFormSubmit()">
+    <div class="form__field p-float-label">
+      <input
+        pInputText
+        formControlName="name"
+        type="text"
+        id="name"
+        class="field__input" />
+      <label for="name" class="field__label">Name<span>*</span> </label>
+      @if (form.controls.name; as name) {
+        <ng-container>
+          @if (name.dirty && name.hasError('required')) {
+            <div class="field__error">Name is required</div>
+          }
+          @if (name.dirty && name.hasError('minlength')) {
+            <div class="field__error">Name is too short</div>
+          }
+          @if (name.dirty && name.hasError('maxlength')) {
+            <div class="field__error">Name is too long</div>
+          }
+          @if (name.dirty && name.hasError('pattern')) {
+            <div class="field__error">Name is invalid</div>
+          }
+        </ng-container>
+      }
+    </div>
+    <div class="form__field p-float-label">
+      <input
+        pInputText
+        formControlName="username"
+        type="text"
+        id="username"
+        class="field__input" />
+      <label for="username" class="field__label">Username <span>*</span></label>
+      @if (form.controls.username; as username) {
+        <ng-container>
+          @if (username.dirty && username.hasError('required')) {
+            <div class="field__error">Username is required</div>
+          }
+          @if (username.dirty && username.hasError('minlength')) {
+            <div class="field__error">Username is too short</div>
+          }
+          @if (username.dirty && username.hasError('maxlength')) {
+            <div class="field__error">Username is too long</div>
+          }
+          @if (username.dirty && username.hasError('pattern')) {
+            <div class="field__error">Username is invalid</div>
+          }
+        </ng-container>
+      }
+    </div>
+    <div class="form__field p-float-label">
+      <input
+        pInputText
+        formControlName="email"
+        type="text"
+        id="email"
+        class="field__input" />
+      <label for="email" class="field__label">Email <span>*</span></label>
+      @if (form.controls.email; as email) {
+        <ng-container>
+          @if (email.dirty && email.hasError('required')) {
+            <div class="field__error">Email is required</div>
+          }
+          @if (email.dirty && email.hasError('email')) {
+            <div class="field__error">Email is invalid</div>
+          }
+        </ng-container>
+      }
+    </div>
+    <div class="form__field p-float-label" formGroupName="password">
+      <input
+        pInputText
+        formControlName="password"
+        type="password"
+        id="password"
+        name="password"
+        class="field__input" />
+      <label for="password" class="field__label">Password<span>*</span></label>
+      @if (form.controls.password.controls.password; as password) {
+        <ng-container>
+          @if (password.dirty && password.hasError('required')) {
+            <div class="field__error">Password is required</div>
+          }
+          @if (password.dirty && password.hasError('pattern')) {
+            <div class="field__error">Password is invalid</div>
+          }
+          @if (password.dirty && password.hasError('minlength')) {
+            <div class="field__error">Password is too short</div>
+          }
+          @if (password.dirty && password.hasError('maxlength')) {
+            <div class="field__error">Password is too long</div>
+          }
+        </ng-container>
+      }
+    </div>
+    <div class="form__field p-float-label" formGroupName="password">
+      <input
+        pInputText
+        formControlName="passwordConfirmation"
+        type="password"
+        id="passwordConfirmation"
+        name="passwordConfirmation"
+        class="field__input" />
+      <label for="passwordConfirmation" class="field__label"
+        >Confirm password<span>*</span></label
+      >
+      @if (
+        form.controls.password.controls.passwordConfirmation;
+        as passwordConfirmation
+      ) {
+        <ng-container>
+          @if (
+            passwordConfirmation.dirty &&
+            passwordConfirmation.hasError('passwordShouldMatch')
+          ) {
+            <div class="field__error">Passwords doesn't match</div>
+          }
+        </ng-container>
+      }
+    </div>
+    <p-button
+      type="submit"
+      styleClass="form__button"
+      [style]="{ 'min-height': '3.5rem', width: '10rem' }"
+      label="Sign Up"
+      [loading]="isLoading"></p-button>
+  </form>
+</div>

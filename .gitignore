@@ -6,6 +6,7 @@
 /out-tsc
 /bazel-out
 /cert
+.nx
 
 # Node
 /node_modules

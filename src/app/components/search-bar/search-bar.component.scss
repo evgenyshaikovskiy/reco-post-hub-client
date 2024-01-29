@@ -1,0 +1,25 @@
+@import 'mixins';
+@import 'variables';
+
+:host {
+  @include flex-row-align-center;
+  margin-bottom: 1rem;
+
+  .c-search-bar {
+    @include flex-row-align-center;
+
+    .p-input-icon-right {
+      .search__input {
+        color: $dark-color-2;
+        padding-left: 1rem;
+        margin-top: 1rem;
+
+        min-height: 2rem;
+
+        &::placeholder {
+          color: $grey-color-2;
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,13 @@
-@import "variables.scss";
+@import 'variables.scss';
 
 @mixin base-transition($target: all, $speed: 0.3s) {
   transition: $target $speed ease-in-out;
 }
 
 @mixin form-control-base {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.12),
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    0 2px 2px rgba(0, 0, 0, 0.12),
     0 0 2px rgba(0, 0, 0, 0.14);
   cursor: pointer;
 }
@@ -71,5 +73,80 @@
 
   &::-webkit-scrollbar {
     display: none !important;
+  }
+}
+
+@mixin gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin text-size-weight-height($size, $weight, $height) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $height;
+}
+
+// TODO: refactor paddings and margins
+@mixin floating-input-label-styles {
+  .form__field {
+    width: 100%;
+
+    .field__input {
+      box-shadow: none;
+      width: 100%;
+      color: $dark-color;
+      @include text-size-weight-height(1rem, 400, 150%);
+      padding: 1.5rem 1.8rem;
+      min-height: 4.8rem;
+    }
+
+    .field__label {
+      @include text-size-weight-height(1.125rem, 400, 150%);
+      color: $dark-color;
+      span {
+        color: $red-color;
+      }
+    }
+
+    .field__hint {
+      @include text-size-weight-height(0.75rem, 400, 150%);
+    }
+
+    .field__error {
+      padding-left: 1.5rem;
+      @include text-size-weight-height(1.025rem, 500, 150%);
+      color: $red-color;
+    }
+  }
+}
+
+@mixin modify-position-for-floating-labels() {
+  :host {
+    ::ng-deep {
+      .p-float-label input:focus ~ label,
+      .p-float-label input.p-filled ~ label,
+      .p-float-label textarea:focus ~ label,
+      .p-float-label textarea.p-filled ~ label,
+      .p-float-label .p-inputwrapper-focus ~ label,
+      .p-float-label .p-inputwrapper-filled ~ label {
+        font-size: 0.875rem !important;
+        color: $grey-color-8;
+        top: 0.7rem;
+      }
+
+      .p-float-label input ~ label {
+        top: 2rem;
+      }
+
+      .p-float-label > label {
+        left: 1.8rem;
+      }
+
+      .p-float-label textarea ~ label {
+        top: 2rem;
+      }
+    }
   }
 }

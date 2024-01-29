@@ -1,0 +1,33 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  @include flex-row-align-center;
+}
+
+::ng-deep {
+  .p-overlaypanel {
+    width: 7rem !important;
+
+    .user-bar__actions {
+      display: flex;
+      flex-flow: column;
+      gap: 0.5rem;
+      padding: 0.3rem;
+
+      .action {
+        cursor: pointer;
+        padding-left: 0.5rem;
+        text-align: left;
+        color: $dark-color;
+        font-weight: 700;
+
+        font-size: 0.9rem;
+
+        &:hover {
+          color: $red-color;
+        }
+      }
+    }
+  }
+}

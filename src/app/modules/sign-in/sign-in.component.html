@@ -1,0 +1,63 @@
+<div class="sign-in-page">
+  <div class="sign-in-page__header">
+    <h1 class="sign-in-page__header__large_text">You can sign in</h1>
+    <hr class="delimiter" />
+    <p class="sign-in-page__header__medium_text">OR</p>
+    <a
+      class="sign-in-page__header__sign-up_link"
+      tabindex="0"
+      (click)="_navigateToSignUp()"
+      (keydown.enter)="_navigateToSignUp()">
+      Sign up if you don't have account
+    </a>
+  </div>
+  <form
+    class="sign-in-page__form"
+    [formGroup]="form"
+    (ngSubmit)="onFormSubmit()">
+    <div class="form__field p-float-label">
+      <input
+        pInputText
+        formControlName="email"
+        type="text"
+        id="email"
+        class="field__input" />
+      <label for="email" class="field__label">Email</label>
+      @if (form.controls.email; as email) {
+        <ng-container>
+          @if (email.dirty && email.hasError('required')) {
+            <div class="field__error">Email is required</div>
+          }
+          @if (email.dirty && email.hasError('email')) {
+            <div class="field__error">Email is invalid</div>
+          }
+        </ng-container>
+      }
+    </div>
+
+    <div class="form__field p-float-label">
+      <input
+        pInputText
+        formControlName="password"
+        type="password"
+        id="password"
+        name="password"
+        class="field__input" />
+      <label for="password" class="field__label">Password</label>
+      @if (form.controls.password; as password) {
+        <ng-container>
+          @if (password.dirty && password.hasError('required')) {
+            <div class="field__error">Password is required</div>
+          }
+        </ng-container>
+      }
+    </div>
+
+    <p-button
+      type="submit"
+      styleClass="form__button"
+      [style]="{ 'min-height': '3.5rem', width: '10rem' }"
+      label="Sign In"
+      [loading]="isLoading"></p-button>
+  </form>
+</div>

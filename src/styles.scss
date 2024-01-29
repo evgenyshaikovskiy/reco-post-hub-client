@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import './assets/styles/variables.scss';
+@import "./assets/styles/variables.scss";
+@import "primeicons/primeicons.css";
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
 html,
@@ -21,14 +28,21 @@ body {
     text-decoration: none;
   }
 
-  main {
-    // padding: 10px;
-    overflow-y: auto;
+  app-root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-    // @media #{$tablet},
-    // #{$desktop} {
-    //   padding: 32px 20px 0;
-    // }
+  app-header {
+    flex-shrink: 0;
+  }
+
+  main {
+    padding: 1rem 2rem;
+    overflow-y: auto;
+    flex-grow: 1;
   }
 }
 

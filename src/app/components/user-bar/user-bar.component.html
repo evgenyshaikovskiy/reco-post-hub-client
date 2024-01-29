@@ -1,0 +1,19 @@
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <div class="user-bar__actions">
+      <!-- Different actions depending whether user is logged in or not -->
+      <!-- unauthorized actions -->
+      <div class="action" routerLink="sign-in">Sign In</div>
+      <div class="action" routerLink="sign-up">Sign Up</div>
+    </div>
+  </ng-template>
+</p-overlayPanel>
+
+<div class="c-user-bar">
+  <i
+    class="pi pi-user"
+    style="font-size: 1.5rem"
+    tabindex="0"
+    (keydown.enter)="op.toggle($event)"
+    (click)="op.toggle($event)"></i>
+</div>
