@@ -3,8 +3,19 @@
     <div class="user-bar__actions">
       <!-- Different actions depending whether user is logged in or not -->
       <!-- unauthorized actions -->
-      <div class="action" routerLink="sign-in">Sign In</div>
-      <div class="action" routerLink="sign-up">Sign Up</div>
+      @if ((isLoggedIn$ | async) === false) {
+        <div class="action" routerLink="sign-in">Sign In</div>
+        <div class="action" routerLink="sign-up">Sign Up</div>
+      } @else {
+        <div class="action" routerLink="/profile/settings">Settings</div>
+        <div
+          class="action"
+          (click)="logOut()"
+          tabindex="0"
+          (keydown.enter)="logOut()">
+          Log Out
+        </div>
+      }
     </div>
   </ng-template>
 </p-overlayPanel>

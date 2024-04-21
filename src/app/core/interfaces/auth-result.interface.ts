@@ -2,6 +2,11 @@ import { IUser } from './user.interface';
 
 export interface IAuthResult {
   user: IUser;
-  accessToken: string;
-  refreshToken: string;
+  accessToken: ITokenMetadata;
+  refreshToken: ITokenMetadata;
+}
+
+export interface ITokenMetadata {
+  token: string;
+  expiresAt: number;
 }

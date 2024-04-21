@@ -33,7 +33,6 @@ export class SignInComponent {
   ) {}
 
   public onFormSubmit() {
-
     console.log(this.form);
     if (this.form.valid) {
       const formValues = this.form.getRawValue();
@@ -57,6 +56,8 @@ export class SignInComponent {
               'success',
               'You were logged in successfully'
             );
+
+            this.router.navigate(['profile']);
           } else {
             this.toastNotificationsService.showNotification('info', result);
             this.form.reset();
@@ -70,5 +71,4 @@ export class SignInComponent {
   protected _navigateToSignUp() {
     this.router.navigate(['sign-up']);
   }
-
 }

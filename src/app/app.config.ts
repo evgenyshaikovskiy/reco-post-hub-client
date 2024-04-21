@@ -6,12 +6,15 @@ import { MessageService } from 'primeng/api';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { originApiInterceptor } from './core/interceptors/origin.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(withInterceptors([originApiInterceptor])),
+    provideHttpClient(
+      withInterceptors([originApiInterceptor, authInterceptor])
+    ),
     MessageService,
   ],
 };
