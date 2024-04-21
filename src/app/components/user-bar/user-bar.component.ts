@@ -5,7 +5,6 @@ import { AuthService } from '../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ToastNotificationsService } from '../../core/services/toast-notifications.service';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-user-bar',
@@ -21,9 +20,10 @@ export class UserBarComponent {
   ) {}
 
   private _destroyRef = inject(DestroyRef);
-  public isLoggedIn$ = this._authService.isLoggedIn$.pipe(
-    tap(value => console.log('is logged in', value))
-  );
+
+  public get isLoggedIn() {
+    return this._authService.isLoggedIn();
+  }
 
   public logOut(): void {
     this._authService

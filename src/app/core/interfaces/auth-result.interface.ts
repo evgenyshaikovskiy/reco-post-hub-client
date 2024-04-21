@@ -8,5 +8,5 @@ export interface IAuthResult {
 
 export interface ITokenMetadata {
   token: string;
-  expiresAt: number;
+  expiredAt: number;
 }

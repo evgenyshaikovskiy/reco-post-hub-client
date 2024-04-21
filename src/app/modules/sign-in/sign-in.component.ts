@@ -33,14 +33,11 @@ export class SignInComponent {
   ) {}
 
   public onFormSubmit() {
-    console.log(this.form);
     if (this.form.valid) {
       const formValues = this.form.getRawValue();
       const dto: UserSignInDto = {
         ...formValues,
       };
-
-      console.log('here');
 
       this.isLoading = true;
       this.authService

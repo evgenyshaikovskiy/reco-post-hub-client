@@ -1,14 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { UserSignUpDto } from '../interfaces/user-sign-up.interface';
-import {
-  BehaviorSubject,
-  Observable,
-  catchError,
-  finalize,
-  map,
-  of,
-} from 'rxjs';
+import { Observable, catchError, finalize, map, of } from 'rxjs';
 import { UserSignInDto } from '../interfaces/user-sign-in.interface';
 import { IAuthResult } from '../interfaces/auth-result.interface';
 import {
@@ -27,13 +20,7 @@ import moment from 'moment';
 export class AuthService {
   private _destroyRef = inject(DestroyRef);
 
-  private _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-
   private _user?: IUser;
-
-  public isLoggedIn$ = this._isLoggedIn$.asObservable();
 
   public get User(): IUser | null {
     return this._user ?? null;
@@ -53,7 +40,6 @@ export class AuthService {
     return this._http.post<IAuthResult>('auth/sign-in', dto).pipe(
       takeUntilDestroyed(this._destroyRef),
       map(authResult => {
-        console.log(authResult);
         this.setSession(authResult);
         return SUCCESS_LOGIN_MESSAGE;
       }),
@@ -64,7 +50,8 @@ export class AuthService {
   }
 
   public refresh(): Observable<IAuthResult> {
-    const refreshToken = localStorage.getItem(REFRESH_TOKEN_LOCAL_STORAGE_KEY) ?? "";
+    const refreshToken =
+      localStorage.getItem(REFRESH_TOKEN_LOCAL_STORAGE_KEY) ?? '';
 
     const dto: RefreshTokenDto = {
       refreshToken: refreshToken,
@@ -105,7 +92,7 @@ export class AuthService {
     );
     localStorage.setItem(
       ACCESS_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY,
-      String(authResult.accessToken.expiresAt)
+      String(authResult.accessToken.expiredAt)
     );
 
     localStorage.setItem(
@@ -114,26 +101,32 @@ export class AuthService {
     );
     localStorage.setItem(
       REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY,
-      String(authResult.refreshToken.expiresAt)
+      String(authResult.refreshToken.expiredAt)
     );
 
     this._user = { ...authResult.user };
-    this._isLoggedIn$.next(true);
   }
 
   public isLoggedIn(): boolean {
-    return moment().isBefore(this.getExpiration());
+    const expiration = this.getExpiration();
+    if (expiration) {
+      return moment().isBefore(expiration);
+    }
+
+    return false;
   }
 
   public isLoggedOut(): boolean {
     return !this.isLoggedIn();
   }
 
-  public getExpiration(): moment.Moment {
-    const expiration =
-      localStorage.getItem(REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY) ?? '0';
-    const expiresAt = JSON.parse(expiration);
-    return moment(expiresAt);
+  public getExpiration(): moment.Moment | null {
+    const expiration = localStorage.getItem(
+      ACCESS_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY
+    );
+    return expiration
+      ? moment(JSON.parse(expiration))
+      : null;
   }
 
   private _clearAfterLogout() {
@@ -142,6 +135,5 @@ export class AuthService {
     localStorage.removeItem(ACCESS_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY);
     localStorage.removeItem(REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY);
     this._user = undefined;
-    this._isLoggedIn$.next(false);
   }
 }
