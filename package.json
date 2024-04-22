@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^17.1.0",
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
+    "@huggingface/inference": "^2.6.7",
     "moment": "^2.30.1",
     "ngx-editor": "^17.0.2",
     "primeicons": "^6.0.1",

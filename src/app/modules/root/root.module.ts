@@ -38,6 +38,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./../profile/profile.module').then(m => m.ProfileModule),
       },
+      {
+        path: 'create-paper',
+        loadChildren: () =>
+          import('./../create-paper/create-paper.module').then(
+            m => m.CreatePaperModule
+          ),
+      },
     ],
   },
 ];

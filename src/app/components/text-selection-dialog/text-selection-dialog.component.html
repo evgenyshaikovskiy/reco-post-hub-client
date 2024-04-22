@@ -1,0 +1,40 @@
+<div class="c-text-selection-dialog">
+  <div class="initial-text">{{ selectedText }}</div>
+  <div class="actions">
+    <p-button
+      class="action-button"
+      label="Rephrase"
+      [loading]="rephraseLoading"
+      (onClick)="onRephrase()"></p-button>
+    <p-button
+      class="action-button"
+      label="Correct grammar"
+      [loading]="correctLoading"
+      [disabled]="isCorrectDisabled"
+      (onClick)="onCorrectGrammar()"></p-button>
+  </div>
+
+  <div class="results">
+    @if (isRephraseResult) {
+      <div class="rephrased-text">{{ rephraseResult }}</div>
+    }
+
+    @if (isCorrectResult) {
+      <div class="corrected-text">{{ correctionResult }}</div>
+    }
+  </div>
+
+  <div class="apply-actions">
+    <p-button
+      class="action-button"
+      label="Apply rephrase"
+      (onClick)="onApply('rephrase')"
+      [disabled]="!isRephraseResult">
+    </p-button>
+    <p-button
+      class="action-button"
+      label="Apply correction"
+      (onClick)="onApply('correct')"
+      [disabled]="!isCorrectResult"></p-button>
+  </div>
+</div>

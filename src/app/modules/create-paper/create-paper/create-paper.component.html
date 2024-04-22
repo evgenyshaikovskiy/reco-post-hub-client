@@ -1,0 +1,108 @@
+<section class="create-paper-page">
+  <div class="tips">
+    <h4>Welcome to create paper page!</h4>
+    <h5>Here you can:</h5>
+    <div class="list-wrapper">
+      <ul>
+        <li>Write on any topic you want</li>
+        <li>Generate hashtags or customize them</li>
+        <li>Get useful tips from AI, to improve your writing experience</li>
+        <li>See text summarization</li>
+      </ul>
+    </div>
+  </div>
+  <div class="paper-data">
+    <div class="paper-title">
+      <div class="header">
+        <h5 class="header-title">Paper title</h5>
+        <div class="button">
+          <p-button
+            class="button"
+            label="Generate title"
+            (onClick)="onTitle()"
+            [loading]="titleLoading"></p-button>
+        </div>
+      </div>
+      <div class="content">
+        <input
+          pInputText
+          type="text"
+          class="p-inputtext-lg title__input"
+          [(ngModel)]="titleInputValue" />
+      </div>
+    </div>
+    <!-- hashtags, title, summarization -->
+
+    <div class="metadata">
+      <div class="hashtags">
+        <div class="header">
+          <h5 class="title">Hashtags</h5>
+          <div class="buttons">
+            <div class="button">
+              <p-button
+                class="button"
+                label="{{
+                  hashtags.length === 0 ? 'Get hashtags' : 'Update hashtags'
+                }}"
+                (onClick)="onHashtags()"
+                [loading]="hashtagsLoading"></p-button>
+            </div>
+            <div class="button">
+              <p-overlayPanel #op>
+                <div class="overlay-wrapper">
+                  <span class="p-input-icon-right">
+                    <i class="pi pi-add"></i>
+                    <input
+                      class="input__hashtag"
+                      type="text"
+                      pInputText
+                      [(ngModel)]="overlayInputValue"
+                      (keydown.enter)="addHashtag()" />
+                  </span>
+                </div>
+              </p-overlayPanel>
+              <p-button
+                class="button"
+                (onClick)="op.toggle($event)"
+                icon="pi pi-plus"
+                label="Add hashtag"></p-button>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          @for (item of hashtags; track $index) {
+            <app-hashtag
+              [value]="item"
+              (deleteHashtag)="onRemoveHashtag($event)"></app-hashtag>
+          }
+        </div>
+      </div>
+      <div class="summarization">
+        <div class="header">
+          <h5 class="title">Summarization</h5>
+          <div class="button">
+            <p-button
+              class="button"
+              label="{{
+                summarization ? 'Update summarization' : 'Get summarization'
+              }}"
+              (onClick)="onSummarization()"
+              [loading]="summarizationLoading"></p-button>
+          </div>
+        </div>
+        <div class="content">
+          {{ summarization }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="editor-wrapper">
+    <app-editor
+      [form]="form"
+      (textSelectionEvent)="onTextSelection($event)"></app-editor>
+  </div>
+
+  <div class="actions">
+    <!-- submit, preview -->
+  </div>
+</section>

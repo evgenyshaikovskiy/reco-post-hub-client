@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./assets/styles/variables.scss";
-@import "primeicons/primeicons.css";
+@import './assets/styles/variables.scss';
+@import 'primeicons/primeicons.css';
 
 * {
   box-sizing: border-box;
@@ -8,7 +8,6 @@
   padding: 0;
   border: 0;
   font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
 }
 
@@ -46,17 +45,17 @@ body {
   }
 }
 
-ul,
-li,
-h2,
-h3 {
-  margin: 0;
-  padding: 0;
-}
+// ul,
+// li,
+// h2,
+// h3 {
+//   margin: 0;
+//   padding: 0;
+// }
 
-li {
-  list-style: none;
-}
+// li {
+//   list-style: none;
+// }
 
 /* Works on Firefox */
 * {

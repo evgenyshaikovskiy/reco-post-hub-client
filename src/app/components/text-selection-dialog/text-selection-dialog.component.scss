@@ -1,0 +1,61 @@
+.c-text-selection-dialog {
+  max-width: 600px;
+  max-height: 700px;
+  padding: 10px;
+  overflow-y: scroll;
+
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+
+  .initial-text {
+    font-weight: 600;
+    max-height: 350px;
+    overflow-y: scroll;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    margin: 10px 0px;
+    .action-button {
+      height: 100%;
+      width: 30%;
+    }
+  }
+
+  .results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .rephrased-text,
+    .corrected-text {
+      color: black;
+      border: 1px solid black;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 30px;
+      max-height: 350px;
+      overflow-y: scroll;
+    }
+  }
+
+  .apply-actions {
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    margin-top: 15px;
+    .action-button {
+      height: 100%;
+      width: 30%;
+    }
+  }
+}
+
+::ng-deep {
+  .p-dialog-title {
+    padding-left: 8px;
+  }
+}
