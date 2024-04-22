@@ -49,7 +49,7 @@ export class EditorComponent implements OnInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public handleClick(clickEvent: any) {
     const selection = window.getSelection();
-    if (selection && selection?.toString()) {
+    if (selection && selection?.toString() && clickEvent.ctrlKey) {
       if (!isSingleParagraph(selection.toString())) {
         this.notificationsService.showNotification(
           'warning',

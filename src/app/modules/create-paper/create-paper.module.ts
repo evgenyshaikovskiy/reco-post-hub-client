@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { HashtagComponent } from '../../components/hashtag/hashtag.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
+import { CreatePaperService } from './create-paper.service';
 
 const routes: Routes = [{ path: '', component: CreatePaperComponent }];
 
@@ -26,6 +27,6 @@ const routes: Routes = [{ path: '', component: CreatePaperComponent }];
     ReactiveFormsModule,
     RouterModule.forChild(routes),
   ],
-  providers: [],
+  providers: [CreatePaperService],
 })
 export class CreatePaperModule {}

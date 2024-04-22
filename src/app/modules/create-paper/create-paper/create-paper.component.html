@@ -28,7 +28,8 @@
           pInputText
           type="text"
           class="p-inputtext-lg title__input"
-          [(ngModel)]="titleInputValue" />
+          [ngModel]="titleInputValue"
+          (ngModelChange)="onTitleChange($event)" />
       </div>
     </div>
     <!-- hashtags, title, summarization -->
@@ -103,6 +104,24 @@
   </div>
 
   <div class="actions">
-    <!-- submit, preview -->
+    <div class="button">
+      <p-button
+        pButton
+        pRipple
+        label="Create"
+        class="create__button"
+        size="large"
+        severity="success"
+        (onClick)="onCreateClick()"></p-button>
+    </div>
+    <div class="button">
+      <p-button
+        pButton
+        pRipple
+        label="Preview"
+        class="preview__button"
+        size="large"
+        severity="info"></p-button>
+    </div>
   </div>
 </section>

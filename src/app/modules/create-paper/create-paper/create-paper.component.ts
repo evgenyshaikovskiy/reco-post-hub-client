@@ -1,13 +1,25 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime, filter, finalize, map, Subject } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  filter,
+  finalize,
+  map,
+  of,
+  Subject,
+} from 'rxjs';
 import { HuggingFaceService } from '../../../core/services/hugging-face.service';
 import { extractTextFromHtml } from '../../../core/utility/extract-text';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TextSelectionEvent } from '../../../core/interfaces/selection-text.interface';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TextSelectionDialogComponent } from '../../../components/text-selection-dialog/text-selection-dialog.component';
-import { capitalizeFirstLetter } from '../../../core/utility/text';
+import { capitalizeFirstLetter, toTitleCase } from '../../../core/utility/text';
+import { ToastNotificationsService } from '../../../core/services/toast-notifications.service';
+import { CreatePaperService } from '../create-paper.service';
+import { CreatePaperDto } from './paper-dtos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-paper',
@@ -41,7 +53,10 @@ export class CreatePaperComponent implements OnInit {
 
   constructor(
     private readonly huggingFaceService: HuggingFaceService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly notificationService: ToastNotificationsService,
+    private readonly paperService: CreatePaperService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -106,6 +121,10 @@ export class CreatePaperComponent implements OnInit {
     this.overlayInputValue = '';
   }
 
+  public onTitleChange(value: string) {
+    this.titleInputValue = toTitleCase(value);
+  }
+
   public onTextSelection(value: TextSelectionEvent): void {
     this._selectedTextSubject.next(value);
   }
@@ -156,5 +175,97 @@ export class CreatePaperComponent implements OnInit {
 
   public onRemoveHashtag(hashtag: string): void {
     this.hashtags = [...this.hashtags.filter(hs => hs !== hashtag)];
+  }
+
+  public onCreateClick(): void {
+    if (this.validateContents()) {
+      const contentHtml = this.editorContent.getRawValue();
+      const contentText = extractTextFromHtml(contentHtml);
+      const hashtags = [...this.hashtags];
+      const summarization = this.summarization;
+      const title = this.titleInputValue;
+      const dto: CreatePaperDto = {
+        contentHtml,
+        contentText,
+        hashtags,
+        summarization,
+        title,
+      };
+
+      // overlay spinner
+      this.paperService
+        .createPaper(dto)
+        .pipe(
+          catchError(error => {
+            this.notificationService.showNotification(
+              'error',
+              error.error.message
+            );
+            return of(null);
+          }),
+          takeUntilDestroyed(this._destroyRef)
+        )
+        .subscribe(value => {
+          if (value) {
+            this.notificationService.showNotification(
+              'success',
+              `${value.title} was created`
+            );
+
+            this.router.navigate(['/']);
+          }
+        });
+    }
+  }
+
+  private validateContents(): boolean {
+    // check if editor content is not empty
+    const htmlText = this.editorContent.getRawValue() as string;
+    if (htmlText.length === 0) {
+      this.notificationService.showNotification(
+        'error',
+        "Can't submit empty paper!"
+      );
+      return false;
+    }
+
+    const rawText = extractTextFromHtml(htmlText);
+    if (rawText.length < 100) {
+      this.notificationService.showNotification('error', 'Paper is too short!');
+      return false;
+    }
+
+    if (this.hashtags.length === 0) {
+      this.notificationService.showNotification(
+        'error',
+        'Paper should have at least 1 hashtag!'
+      );
+      return false;
+    }
+
+    if (
+      this.titleInputValue.length === 0 ||
+      this.titleInputValue.trim().length === 0
+    ) {
+      this.notificationService.showNotification(
+        'error',
+        'Paper should have title!'
+      );
+      return false;
+    }
+
+    if (
+      this.summarization.length === 0 ||
+      this.summarization.trim().length === 0
+    ) {
+      this.notificationService.showNotification(
+        'error',
+        'Paper should have summarization!'
+      );
+
+      return false;
+    }
+
+    return true;
   }
 }

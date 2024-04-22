@@ -21,7 +21,6 @@
       flex-direction: column;
       justify-content: center;
 
-
       .header {
         display: flex;
         justify-content: space-between;
@@ -32,7 +31,6 @@
         .button {
           height: 30px;
           width: 60%;
-
         }
       }
 
@@ -122,6 +120,23 @@
   }
 
   .actions {
+    display: flex;
+    height: 70px;
+
+    justify-content: space-between;
+
+    .button {
+      width: 30%;
+      .preview__button {
+        .p-button {
+          .p-button-label {
+            font-size: large !important;
+            text-transform: uppercase !important;
+            font-weight: 800 !important; 
+          }
+        }
+      }
+    }
   }
 }
 

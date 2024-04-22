@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RootComponent } from './root.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
+import { authGuard } from '../../core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
           import('./../create-paper/create-paper.module').then(
             m => m.CreatePaperModule
           ),
+        canActivate: [authGuard],
       },
     ],
   },

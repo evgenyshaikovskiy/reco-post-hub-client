@@ -48,7 +48,13 @@
     width: 50%;
 
     @include floating-input-label-styles;
+
+    
   }
+}
+
+.button-wrapper {
+  width: 30%;
 }
 
 .form__button {

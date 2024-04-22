@@ -15,3 +15,10 @@ export function isSingleParagraph(text: string): boolean {
   // If there's only one paragraph, return true
   return paragraphs.length === 1;
 }
+
+export function toTitleCase(str: string): string {
+  return str
+    .split(' ')
+    .map((l: string) => l[0].toUpperCase() + l.substring(1))
+    .join(' ');
+}

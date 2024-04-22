@@ -8,6 +8,7 @@
         <div class="action" routerLink="sign-up">Sign Up</div>
       } @else {
         <div class="action" routerLink="/profile/settings">Settings</div>
+        <div class="action" routerLink="/create-paper">Write paper</div>
         <div
           class="action"
           (click)="logOut()"
@@ -15,7 +16,7 @@
           (keydown.enter)="logOut()">
           Log Out
         </div>
-      }   
+      }
     </div>
   </ng-template>
 </p-overlayPanel>
