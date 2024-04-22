@@ -2,7 +2,7 @@
   padding-left: 30px;
 }
 
-.create-paper-page {
+.create-topic-page {
   display: flex;
   flex-flow: column;
   gap: 10px;
@@ -10,13 +10,13 @@
   .tips {
   }
 
-  .paper-data {
+  .topic-data {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 20px;
 
-    .paper-title {
+    .topic-title {
       display: flex;
       flex-direction: column;
       justify-content: center;

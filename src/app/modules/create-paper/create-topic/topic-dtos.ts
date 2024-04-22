@@ -1,4 +1,4 @@
-export interface CreatePaperDto {
+export interface CreateTopicDto {
   title: string;
   contentHtml: string;
   contentText: string;

@@ -40,10 +40,10 @@ const routes: Routes = [
           import('./../profile/profile.module').then(m => m.ProfileModule),
       },
       {
-        path: 'create-paper',
+        path: 'create-topic',
         loadChildren: () =>
-          import('./../create-paper/create-paper.module').then(
-            m => m.CreatePaperModule
+          import('../create-paper/create-topic.module').then(
+            m => m.CreateTopicModule
           ),
         canActivate: [authGuard],
       },

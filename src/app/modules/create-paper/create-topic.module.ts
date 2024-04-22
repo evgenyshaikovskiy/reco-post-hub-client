@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreatePaperComponent } from './create-paper/create-paper.component';
+import { CreateTopicComponent } from './create-topic/create-topic.component';
 import { EditorModule } from '../editor/editor.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,12 +9,12 @@ import { ButtonModule } from 'primeng/button';
 import { HashtagComponent } from '../../components/hashtag/hashtag.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
-import { CreatePaperService } from './create-paper.service';
+import { CreateTopicService } from './create-topic.service';
 
-const routes: Routes = [{ path: '', component: CreatePaperComponent }];
+const routes: Routes = [{ path: '', component: CreateTopicComponent }];
 
 @NgModule({
-  declarations: [CreatePaperComponent],
+  declarations: [CreateTopicComponent],
   imports: [
     ButtonModule,
     HashtagComponent,
@@ -27,6 +27,6 @@ const routes: Routes = [{ path: '', component: CreatePaperComponent }];
     ReactiveFormsModule,
     RouterModule.forChild(routes),
   ],
-  providers: [CreatePaperService],
+  providers: [CreateTopicService],
 })
-export class CreatePaperModule {}
+export class CreateTopicModule {}

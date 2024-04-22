@@ -17,16 +17,16 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TextSelectionDialogComponent } from '../../../components/text-selection-dialog/text-selection-dialog.component';
 import { capitalizeFirstLetter, toTitleCase } from '../../../core/utility/text';
 import { ToastNotificationsService } from '../../../core/services/toast-notifications.service';
-import { CreatePaperService } from '../create-paper.service';
-import { CreatePaperDto } from './paper-dtos';
+import { CreateTopicService } from '../create-topic.service';
+import { CreateTopicDto } from './topic-dtos';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-paper',
-  templateUrl: './create-paper.component.html',
-  styleUrl: './create-paper.component.scss',
+  selector: 'app-create-topic',
+  templateUrl: './create-topic.component.html',
+  styleUrl: './create-topic.component.scss',
 })
-export class CreatePaperComponent implements OnInit {
+export class CreateTopicComponent implements OnInit {
   public form: FormGroup = new FormGroup({
     editorContent: new FormControl(``),
     title: new FormControl(''),
@@ -55,7 +55,7 @@ export class CreatePaperComponent implements OnInit {
     private readonly huggingFaceService: HuggingFaceService,
     private readonly dialogService: DialogService,
     private readonly notificationService: ToastNotificationsService,
-    private readonly paperService: CreatePaperService,
+    private readonly topicService: CreateTopicService,
     private readonly router: Router
   ) {}
 
@@ -184,7 +184,7 @@ export class CreatePaperComponent implements OnInit {
       const hashtags = [...this.hashtags];
       const summarization = this.summarization;
       const title = this.titleInputValue;
-      const dto: CreatePaperDto = {
+      const dto: CreateTopicDto = {
         contentHtml,
         contentText,
         hashtags,
@@ -193,8 +193,8 @@ export class CreatePaperComponent implements OnInit {
       };
 
       // overlay spinner
-      this.paperService
-        .createPaper(dto)
+      this.topicService
+        .createTopic(dto)
         .pipe(
           catchError(error => {
             this.notificationService.showNotification(
@@ -224,21 +224,21 @@ export class CreatePaperComponent implements OnInit {
     if (htmlText.length === 0) {
       this.notificationService.showNotification(
         'error',
-        "Can't submit empty paper!"
+        "Can't submit empty topic!"
       );
       return false;
     }
 
     const rawText = extractTextFromHtml(htmlText);
     if (rawText.length < 100) {
-      this.notificationService.showNotification('error', 'Paper is too short!');
+      this.notificationService.showNotification('error', 'Topic is too short!');
       return false;
     }
 
     if (this.hashtags.length === 0) {
       this.notificationService.showNotification(
         'error',
-        'Paper should have at least 1 hashtag!'
+        'Topic should have at least 1 hashtag!'
       );
       return false;
     }
@@ -249,7 +249,7 @@ export class CreatePaperComponent implements OnInit {
     ) {
       this.notificationService.showNotification(
         'error',
-        'Paper should have title!'
+        'Topic should have title!'
       );
       return false;
     }
@@ -260,7 +260,7 @@ export class CreatePaperComponent implements OnInit {
     ) {
       this.notificationService.showNotification(
         'error',
-        'Paper should have summarization!'
+        'Topic should have summarization!'
       );
 
       return false;
