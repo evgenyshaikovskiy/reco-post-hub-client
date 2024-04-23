@@ -77,10 +77,23 @@ export class HuggingFaceService {
 
   public generateTitle(text: string) {
     return from(
-      this._hf.textGeneration({
-        model: 'czearing/article-title-generator',
-        inputs: text,
+      this._hf
+        .textGeneration({
+          model: 'czearing/article-title-generator',
+          inputs: text,
+        })
+        .catch(error => {
+          console.log(error, 'error');
+          return {
+            generated_text: '',
+          };
+        })
+    ).pipe(
+      map(output => output.generated_text),
+      catchError(error => {
+        console.log(error);
+        return '';
       })
-    ).pipe(map(output => output.generated_text));
+    );
   }
 }

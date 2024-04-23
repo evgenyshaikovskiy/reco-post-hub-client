@@ -1,0 +1,15 @@
+<div class="topic-wrapper">
+  <h1 class="topic-title">{{ title }}</h1>
+  <div class="topic-meta">
+    <h4 class="author">By {{ user.name }}</h4>
+    <p class="date-created">
+      {{ createdAt | date: 'd, MMM, YYYY hh:mm' }}
+    </p>
+    <div class="hashtags">
+      @for (hashtag of hashtags; track $index) {
+        <p class="hashtag">#{{ hashtag }}</p>
+      }
+    </div>
+  </div>
+  <div class="topic-content" #topicHtml [innerHTML]="htmlContent"></div>
+</div>

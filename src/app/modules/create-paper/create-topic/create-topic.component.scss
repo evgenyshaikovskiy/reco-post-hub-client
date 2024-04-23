@@ -132,7 +132,7 @@
           .p-button-label {
             font-size: large !important;
             text-transform: uppercase !important;
-            font-weight: 800 !important; 
+            font-weight: 800 !important;
           }
         }
       }
@@ -154,4 +154,9 @@
       min-height: 2rem;
     }
   }
+}
+
+::ng-deep .preview-wrapper {
+  display: flex;
+  min-height: calc(100% - 250px);
 }

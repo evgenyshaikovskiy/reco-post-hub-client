@@ -121,7 +121,19 @@
         label="Preview"
         class="preview__button"
         size="large"
-        severity="info"></p-button>
+        severity="info"
+        (onClick)="previewOverlay.toggle($event)"></p-button>
     </div>
   </div>
 </section>
+
+<p-overlayPanel #previewOverlay [showCloseIcon]="true">
+  <div class="preview-wrapper">
+    <app-topic-content
+    [createdAt]="now"
+    [hashtags]="hashtags"
+    [htmlContent]="editorHtmlContent"
+    [title]="titleInputValue"
+    [user]="currentUser"></app-topic-content>
+  </div>
+</p-overlayPanel>

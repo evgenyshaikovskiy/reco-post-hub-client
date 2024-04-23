@@ -47,6 +47,13 @@ const routes: Routes = [
           ),
         canActivate: [authGuard],
       },
+      {
+        path: 'topic',
+        loadChildren: () =>
+          import('../topic-page/topic-page.module').then(
+            m => m.TopicPageModule
+          ),
+      },
     ],
   },
 ];

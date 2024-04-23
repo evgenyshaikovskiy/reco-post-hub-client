@@ -1,0 +1,48 @@
+.topic-preview {
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+
+  .topic-title {
+    font-size: large;
+    font-weight: bald;
+    color: black;
+
+    &:hover {
+      color: rgb(97, 97, 176);
+      cursor: pointer;
+    }
+  }
+
+  .topic-metadata {
+    display: flex;
+    flex-direction: column;
+
+    .author {
+      color: black;
+    }
+
+    .date-created {
+      color: black;
+      font-weight: 400;
+    }
+    
+  }
+
+  .button-wrapper {
+    display: flex;
+    justify-self: center;
+    width: 30px;
+    height: 30px;
+    .button {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.summarization-overlay {
+  display: flex;
+  width: 300px;
+  padding: 20px;
+}

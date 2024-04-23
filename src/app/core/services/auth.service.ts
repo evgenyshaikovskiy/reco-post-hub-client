@@ -9,6 +9,7 @@ import {
   ACCESS_TOKEN_LOCAL_STORAGE_KEY,
   REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY,
   REFRESH_TOKEN_LOCAL_STORAGE_KEY,
+  USER_LOCAL_STORAGE_KEY,
 } from '../consts/keys';
 import { SUCCESS_LOGIN_MESSAGE } from '../consts/consts';
 import { IUser } from '../interfaces/user.interface';
@@ -104,6 +105,11 @@ export class AuthService {
       String(authResult.refreshToken.expiredAt)
     );
 
+    localStorage.setItem(
+      USER_LOCAL_STORAGE_KEY,
+      JSON.stringify(authResult.user)
+    );
+
     this._user = { ...authResult.user };
   }
 
@@ -124,9 +130,17 @@ export class AuthService {
     const expiration = localStorage.getItem(
       ACCESS_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY
     );
-    return expiration
-      ? moment(JSON.parse(expiration))
-      : null;
+    return expiration ? moment(JSON.parse(expiration)) : null;
+  }
+
+  public checkUser(): void {
+    if (!this.User) {
+      const retrievedUser = localStorage.getItem(USER_LOCAL_STORAGE_KEY);
+      if (retrievedUser) {
+        const userData = JSON.parse(retrievedUser) as IUser;
+        this._user = { ...userData };
+      }
+    }
   }
 
   private _clearAfterLogout() {
@@ -134,6 +148,7 @@ export class AuthService {
     localStorage.removeItem(REFRESH_TOKEN_LOCAL_STORAGE_KEY);
     localStorage.removeItem(ACCESS_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY);
     localStorage.removeItem(REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY);
+    localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
     this._user = undefined;
   }
 }

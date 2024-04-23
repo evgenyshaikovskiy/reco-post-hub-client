@@ -10,6 +10,7 @@ import { HashtagComponent } from '../../components/hashtag/hashtag.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
 import { CreateTopicService } from './create-topic.service';
+import { TopicContentComponent } from '../../components/topic-content/topic-content.component';
 
 const routes: Routes = [{ path: '', component: CreateTopicComponent }];
 
@@ -18,6 +19,7 @@ const routes: Routes = [{ path: '', component: CreateTopicComponent }];
   imports: [
     ButtonModule,
     HashtagComponent,
+    TopicContentComponent,
     OverlayPanelModule,
     InputTextModule,
     TextSelectionDialogComponent,

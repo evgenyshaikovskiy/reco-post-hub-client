@@ -47,6 +47,7 @@ export const authInterceptor: HttpInterceptorFn = (
         if (error.status === 401 || error.status === 403) {
           return authService.refresh().pipe(
             switchMap(authData => {
+              console.log(authData);
               authService.setSession(authData);
               request = request.clone({
                 headers: request.headers.set(

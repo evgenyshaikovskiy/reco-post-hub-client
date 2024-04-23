@@ -20,6 +20,8 @@ import { ToastNotificationsService } from '../../../core/services/toast-notifica
 import { CreateTopicService } from '../create-topic.service';
 import { CreateTopicDto } from './topic-dtos';
 import { Router } from '@angular/router';
+import { IPublicUser } from '../../../core/interfaces/request-interfaces';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-create-topic',
@@ -31,6 +33,25 @@ export class CreateTopicComponent implements OnInit {
     editorContent: new FormControl(``),
     title: new FormControl(''),
   });
+
+  public get now(): Date {
+    return new Date(Date.now());
+  }
+
+  public get editorHtmlContent(): string {
+    return this.editorContent.getRawValue();
+  }
+
+  public get currentUser(): IPublicUser {
+    return {
+      createdAt: this.now,
+      email: this.authService.User!.email,
+      id: this.authService.User!.id,
+      username: this.authService.User!.username,
+      updatedAt: this.now,
+      name: this.authService.User!.name,
+    }
+  }
 
   public summarization: string = '';
   public summarizationLoading: boolean = false;
@@ -56,6 +77,7 @@ export class CreateTopicComponent implements OnInit {
     private readonly dialogService: DialogService,
     private readonly notificationService: ToastNotificationsService,
     private readonly topicService: CreateTopicService,
+    private readonly authService: AuthService,
     private readonly router: Router
   ) {}
 
@@ -136,7 +158,15 @@ export class CreateTopicComponent implements OnInit {
       .summarizeText(text)
       .pipe(
         takeUntilDestroyed(this._destroyRef),
-        finalize(() => (this.summarizationLoading = false))
+        finalize(() => (this.summarizationLoading = false)),
+        catchError(() => {
+          this.summarizationLoading = false;
+          this.notificationService.showNotification(
+            'error',
+            'Summarization service is not available at this moment. Retry later.'
+          );
+          return this.summarization;
+        })
       )
       .subscribe(text => {
         console.log(text, 'summarization');
@@ -151,6 +181,14 @@ export class CreateTopicComponent implements OnInit {
       .tokenGeneration(text)
       .pipe(
         takeUntilDestroyed(this._destroyRef),
+        catchError(() => {
+          this.hashtagsLoading = false;
+          this.notificationService.showNotification(
+            'error',
+            'Hashtag generation service is not available at this moment. Retry later.'
+          );
+          return [];
+        }),
         finalize(() => (this.hashtagsLoading = false))
       )
       .subscribe(value => {
@@ -166,6 +204,15 @@ export class CreateTopicComponent implements OnInit {
       .generateTitle(text)
       .pipe(
         takeUntilDestroyed(this._destroyRef),
+        catchError(() => {
+          console.log('HERE ERROR');
+          this.titleLoading = false;
+          this.notificationService.showNotification(
+            'error',
+            'Title generation service is not available at this moment. Retry later.'
+          );
+          return [];
+        }),
         finalize(() => (this.titleLoading = false))
       )
       .subscribe(value => {

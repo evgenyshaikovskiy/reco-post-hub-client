@@ -1,0 +1,98 @@
+@import 'mixins';
+
+:host ::ng-deep .topic-content {
+  padding: 0px 100px;
+
+  ul,
+  ol {
+    padding-left: 30px;
+  }
+
+  h1 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    font-weight: bold;
+  }
+
+  h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    font-weight: bold;
+  }
+
+  h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-weight: bold;
+  }
+
+  h4 {
+    display: block;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+    font-weight: bold;
+  }
+
+  h5 {
+    display: block;
+    font-size: 0.83em;
+    margin-top: 1.67em;
+    margin-bottom: 1.67em;
+    font-weight: bold;
+  }
+
+  h6 {
+    display: block;
+    font-size: 0.67em;
+    margin-top: 2.33em;
+    margin-bottom: 2.33em;
+    font-weight: bold;
+  }
+}
+
+.topic-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .topic-title {
+    font-size: 30px;
+    padding: 1rem;
+    background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+    @include gradient-text;
+  }
+
+  .topic-meta {
+    padding-left: 1rem;
+    display: flex;
+    flex-flow: column;
+
+    .hashtags {
+      width: 50%;
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      .hashtag {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        color: #697cde;
+
+        font-weight: 700;
+        font-size: 18px;
+        &:hover {
+          cursor: pointer;
+          color: #4158d0;
+        }
+      }
+    }
+  }
+}
