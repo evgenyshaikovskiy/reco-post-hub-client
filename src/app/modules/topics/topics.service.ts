@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPublicTopic } from '../../core/interfaces/request-interfaces';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TopicsService {
   constructor(private readonly _http: HttpClient) {}
 

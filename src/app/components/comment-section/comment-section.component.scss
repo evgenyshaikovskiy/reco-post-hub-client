@@ -1,0 +1,51 @@
+:host ::ng-deep .NgxEditor__MenuBar {
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+:host ::ng-deep .NgxEditor__Content {
+  min-height: 120px;
+}
+
+.comment-section-wrapper {
+  display: flex;
+  flex-flow: column;
+
+  .empty-comment-section {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
+    display: flex;
+    font-weight: 600;
+    font-size: x-large;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comments {
+    display: flex;
+    flex-flow: column;
+    .comment {
+    }
+  }
+
+  .write-comment {
+    .comment-editor {
+
+    }
+
+    .button-wrapper {
+      display: flex;
+      width: 20%;
+      height: 35px;
+      margin-top: 10px;
+      .button {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .not-authenticated-message {
+  }
+}

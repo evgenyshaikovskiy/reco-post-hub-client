@@ -6,4 +6,8 @@
     [user]="topic.user"
     [createdAt]="topic.createdAt"
     [hashtags]="topic.hashtags"></app-topic-content>
+
+  <app-comment-section
+    [comments]="comments"
+    (sendCommentEvent)="sendComment($event)"></app-comment-section>
 </div>

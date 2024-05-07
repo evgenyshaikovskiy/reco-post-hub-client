@@ -24,6 +24,7 @@ export class AuthService {
   private _user?: IUser;
 
   public get User(): IUser | null {
+    this.checkUser();
     return this._user ?? null;
   }
 
@@ -115,6 +116,7 @@ export class AuthService {
 
   public isLoggedIn(): boolean {
     const expiration = this.getExpiration();
+    this.checkUser();
     if (expiration) {
       return moment().isBefore(expiration);
     }
@@ -134,7 +136,7 @@ export class AuthService {
   }
 
   public checkUser(): void {
-    if (!this.User) {
+    if (!this._user) {
       const retrievedUser = localStorage.getItem(USER_LOCAL_STORAGE_KEY);
       if (retrievedUser) {
         const userData = JSON.parse(retrievedUser) as IUser;

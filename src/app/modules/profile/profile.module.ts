@@ -4,6 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
 import { authGuard } from '../../core/guards/auth.guard';
+import { FileUploadModule } from 'primeng/fileupload';
 
 const routes: Routes = [
   { path: '', component: ProfileComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ProfileComponent, SettingsComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  imports: [CommonModule, FileUploadModule, RouterModule.forChild(routes)],
+  providers: [],
 })
 export class ProfileModule {}

@@ -1,4 +1,3 @@
-
 export interface IPublicUser {
   id: number;
   name: string;
@@ -6,6 +5,7 @@ export interface IPublicUser {
   email: string;
   createdAt: Date;
   updatedAt: Date;
+  userPictureId: string;
 }
 
 export interface IPublicTopic {
@@ -20,4 +20,22 @@ export interface IPublicTopic {
   createdAt: Date;
   updatedAt: Date;
   user: IPublicUser;
+}
+
+export interface IComment {
+  id: string;
+
+  authorId: number;
+
+  topicId: string;
+
+  textContent: string;
+
+  htmlContent: string;
+
+  mentionedProfileIds: number[];
+
+  createdAt: Date;
+
+  updatedAt: Date;
 }

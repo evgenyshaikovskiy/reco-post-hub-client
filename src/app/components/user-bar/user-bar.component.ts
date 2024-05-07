@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AuthService } from '../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,8 @@ import { ToastNotificationsService } from '../../core/services/toast-notificatio
 export class UserBarComponent {
   constructor(
     private readonly _authService: AuthService,
-    private readonly _notificationService: ToastNotificationsService
+    private readonly _notificationService: ToastNotificationsService,
+    private readonly _router: Router
   ) {}
 
   private _destroyRef = inject(DestroyRef);
@@ -31,6 +32,7 @@ export class UserBarComponent {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((message: string) => {
         this._notificationService.showNotification('info', message);
+        this._router.navigate(['home']);
       });
   }
 }

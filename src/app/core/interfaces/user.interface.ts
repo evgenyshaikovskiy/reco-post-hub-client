@@ -8,6 +8,7 @@ export interface IUser {
   email: string;
   confirmed: boolean;
   credentials: ICredentials;
+  userPictureId: string;
   // TODO fix created at type
   createdAt: any;
   updatedAt: any;

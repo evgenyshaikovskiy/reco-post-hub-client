@@ -1,1 +1,26 @@
-<p>settings works!</p>
+<div>
+  Data:
+  {{ profileInfo | json }}
+</div>
+
+<div class="file-upload-wrapper">
+  <div class="loader">
+    <p-fileUpload
+      name="file-upload"
+      chooseLabel="Load Profile Picture"
+      accept="image/*"
+      uploadLabel="Update Profile Picture"
+      cancelLabel="Clear Selection"
+      (onSelect)="onProfilePictureUpload($event)"
+      [showUploadButton]="false"
+      (onClear)="onClear()"></p-fileUpload>
+  </div>
+
+  <div class="button-wrapper">
+    <p-button
+      class="button"
+      label="Apply"
+      (onClick)="onSend()"
+      [disabled]="isFileLoaded"></p-button>
+  </div>
+</div>

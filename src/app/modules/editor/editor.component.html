@@ -4,7 +4,9 @@
     (click)="handleClick($event)"
     tabindex="0"
     (keydown.enter)="handleClick($event)">
-    <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+    <ngx-editor-floating-menu [editor]="editor">
+      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+    </ngx-editor-floating-menu>
     <ngx-editor [editor]="editor" formControlName="editorContent"></ngx-editor>
   </form>
 </div>

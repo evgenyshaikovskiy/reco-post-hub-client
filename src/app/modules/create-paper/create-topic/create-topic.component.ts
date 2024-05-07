@@ -44,6 +44,7 @@ export class CreateTopicComponent implements OnInit {
 
   public get currentUser(): IPublicUser {
     return {
+      userPictureId: this.authService.User!.userPictureId,
       createdAt: this.now,
       email: this.authService.User!.email,
       id: this.authService.User!.id,

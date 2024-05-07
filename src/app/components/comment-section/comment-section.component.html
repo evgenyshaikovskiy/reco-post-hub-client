@@ -1,0 +1,43 @@
+<div class="comment-section-wrapper">
+  @if (comments.length === 0) {
+    <div class="empty-comment-section">No comments yet</div>
+  } @else {
+    <div class="comments">
+      @for (comment of comments; track $index) {
+        <div class="comment">
+          {{ comment.textContent }}
+        </div>
+      }
+    </div>
+  }
+
+  @if (isAuthenticated) {
+    <div class="write-comment">
+      <div class="comment-editor">
+        <ngx-editor-floating-menu [editor]="editor">
+          <ngx-editor-menu
+            [editor]="editor"
+            [toolbar]="toolbar"></ngx-editor-menu>
+        </ngx-editor-floating-menu>
+        <ngx-editor
+          [editor]="editor"
+          [formControl]="commentControl"></ngx-editor>
+      </div>
+
+      <div class="button-wrapper">
+        <p-button
+          class="button"
+          label="Send"
+          (onClick)="sendComment()"></p-button>
+      </div>
+
+      @if (mentions.length > 0) {
+        <div class="mentions-list">
+          You are mentioning {{ mentions.join(' ') }}
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="not-authenticated-message"></div>
+  }
+</div>
