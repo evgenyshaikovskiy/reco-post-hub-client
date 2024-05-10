@@ -6,22 +6,30 @@
     tabindex="0">
     {{ topic.title }}
   </h2>
-  <div class="topic-metadata">
-    <h4 class="author">By {{ topic.user.name }}</h4>
-    <p class="date-created">
-      {{ topic.createdAt | date: 'd, MMM, YYYY hh:mm' }}
-    </p>
+  <div class="topic-hashtags">
+    @for (item of topic.hashtags; track $index) {
+      <div class="hashtag">#{{ item.name }}</div>
+    }
   </div>
-  <div class="button-wrapper">
-    <p-overlayPanel #op>
-      <div class="summarization-overlay">
-        Summary: {{ topic.summarization }}
-      </div>
-    </p-overlayPanel>
-    <p-button
-      class="button"
-      (onClick)="op.toggle($event)"
-      icon="pi pi-angle-double-down"
-      severity="secondary"></p-button>
+  <div class="topic-metadata">
+    <div class="metadata">
+      <h4 class="author">By {{ topic.user.name }}</h4>
+      <p class="date-created">
+        {{ topic.createdAt | date: 'd, MMM, YYYY hh:mm' }}
+      </p>
+    </div>
+
+    <div class="button-wrapper">
+      <p-overlayPanel #op>
+        <div class="summarization-overlay">
+          Summary: {{ topic.summarization }}
+        </div>
+      </p-overlayPanel>
+      <p-button
+        class="button"
+        (onClick)="op.toggle($event)"
+        icon="pi pi-angle-double-down"
+        severity="secondary"></p-button>
+    </div>
   </div>
 </div>

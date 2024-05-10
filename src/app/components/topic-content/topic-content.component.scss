@@ -1,4 +1,5 @@
 @import 'mixins';
+@import 'variables';
 
 :host ::ng-deep .topic-content {
   padding: 0px 100px;
@@ -84,13 +85,13 @@
         display: flex;
         justify-content: center;
         align-content: center;
-        color: #697cde;
+        color: $hashtag-color;
 
         font-weight: 700;
         font-size: 18px;
         &:hover {
           cursor: pointer;
-          color: #4158d0;
+          color: $hashtag-color-hover;
         }
       }
     }
