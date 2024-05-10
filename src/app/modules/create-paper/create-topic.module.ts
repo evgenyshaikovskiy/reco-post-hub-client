@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { HashtagComponent } from '../../components/hashtag/hashtag.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
+import { AccordionModule } from 'primeng/accordion';
 import { CreateTopicService } from './create-topic.service';
 import { TopicContentComponent } from '../../components/topic-content/topic-content.component';
 
@@ -26,6 +27,7 @@ const routes: Routes = [{ path: '', component: CreateTopicComponent }];
     CommonModule,
     EditorModule,
     FormsModule,
+    AccordionModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
   ],

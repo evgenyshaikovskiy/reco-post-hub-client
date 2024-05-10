@@ -33,69 +33,72 @@
       </div>
     </div>
     <!-- hashtags, title, summarization -->
-
-    <div class="metadata">
-      <div class="hashtags">
-        <div class="header">
-          <h5 class="title">Hashtags</h5>
-          <div class="buttons">
-            <div class="button">
-              <p-button
-                class="button"
-                label="{{
-                  hashtags.length === 0 ? 'Get hashtags' : 'Update hashtags'
-                }}"
-                (onClick)="onHashtags()"
-                [loading]="hashtagsLoading"></p-button>
-            </div>
-            <div class="button">
-              <p-overlayPanel #op>
-                <div class="overlay-wrapper">
-                  <span class="p-input-icon-right">
-                    <i class="pi pi-add"></i>
-                    <input
-                      class="input__hashtag"
-                      type="text"
-                      pInputText
-                      [(ngModel)]="overlayInputValue"
-                      (keydown.enter)="addHashtag()" />
-                  </span>
+    <p-accordion class="accordion">
+      <p-accordionTab header="Topic metadata" class="accordion-tab">
+        <div class="metadata">
+          <div class="hashtags">
+            <div class="header">
+              <h5 class="title">Hashtags</h5>
+              <div class="buttons">
+                <div class="button">
+                  <p-button
+                    class="button"
+                    label="{{
+                      hashtags.length === 0 ? 'Get hashtags' : 'Update hashtags'
+                    }}"
+                    (onClick)="onHashtags()"
+                    [loading]="hashtagsLoading"></p-button>
                 </div>
-              </p-overlayPanel>
-              <p-button
-                class="button"
-                (onClick)="op.toggle($event)"
-                icon="pi pi-plus"
-                label="Add hashtag"></p-button>
+                <div class="button">
+                  <p-overlayPanel #op>
+                    <div class="overlay-wrapper">
+                      <span class="p-input-icon-right">
+                        <i class="pi pi-add"></i>
+                        <input
+                          class="input__hashtag"
+                          type="text"
+                          pInputText
+                          [(ngModel)]="overlayInputValue"
+                          (keydown.enter)="addHashtag()" />
+                      </span>
+                    </div>
+                  </p-overlayPanel>
+                  <p-button
+                    class="button"
+                    (onClick)="op.toggle($event)"
+                    icon="pi pi-plus"
+                    label="Add hashtag"></p-button>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              @for (item of hashtags; track $index) {
+                <app-hashtag
+                  [value]="item"
+                  (deleteHashtag)="onRemoveHashtag($event)"></app-hashtag>
+              }
+            </div>
+          </div>
+          <div class="summarization">
+            <div class="header">
+              <h5 class="title">Summarization</h5>
+              <div class="button">
+                <p-button
+                  class="button"
+                  label="{{
+                    summarization ? 'Update summarization' : 'Get summarization'
+                  }}"
+                  (onClick)="onSummarization()"
+                  [loading]="summarizationLoading"></p-button>
+              </div>
+            </div>
+            <div class="content">
+              {{ summarization }}
             </div>
           </div>
         </div>
-        <div class="content">
-          @for (item of hashtags; track $index) {
-            <app-hashtag
-              [value]="item"
-              (deleteHashtag)="onRemoveHashtag($event)"></app-hashtag>
-          }
-        </div>
-      </div>
-      <div class="summarization">
-        <div class="header">
-          <h5 class="title">Summarization</h5>
-          <div class="button">
-            <p-button
-              class="button"
-              label="{{
-                summarization ? 'Update summarization' : 'Get summarization'
-              }}"
-              (onClick)="onSummarization()"
-              [loading]="summarizationLoading"></p-button>
-          </div>
-        </div>
-        <div class="content">
-          {{ summarization }}
-        </div>
-      </div>
-    </div>
+      </p-accordionTab>
+    </p-accordion>
   </div>
   <div class="editor-wrapper">
     <app-editor
@@ -130,10 +133,10 @@
 <p-overlayPanel #previewOverlay [showCloseIcon]="true">
   <div class="preview-wrapper">
     <app-topic-content
-    [createdAt]="now"
-    [hashtags]="hashtags"
-    [htmlContent]="editorHtmlContent"
-    [title]="titleInputValue"
-    [user]="currentUser"></app-topic-content>
+      [createdAt]="now"
+      [hashtags]="hashtagTransform"
+      [htmlContent]="editorHtmlContent"
+      [title]="titleInputValue"
+      [user]="currentUser"></app-topic-content>
   </div>
 </p-overlayPanel>

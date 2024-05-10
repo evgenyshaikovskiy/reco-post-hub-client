@@ -15,11 +15,16 @@ export interface IPublicTopic {
   title: string;
   textContent: string;
   htmlContent: string;
-  hashtags: string[];
+  hashtags: IHashtag[];
   summarization: string;
   createdAt: Date;
   updatedAt: Date;
   user: IPublicUser;
+}
+
+export interface IHashtag {
+  id: string;
+  name: string;
 }
 
 export interface IComment {

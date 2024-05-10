@@ -16,6 +16,11 @@
     flex-direction: column;
     gap: 20px;
 
+    .accordion {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
     .topic-title {
       display: flex;
       flex-direction: column;
@@ -52,6 +57,7 @@
     .metadata {
       display: flex;
       justify-content: space-between;
+      margin-top: 10px;
       height: 300px;
 
       .hashtags,
@@ -160,3 +166,11 @@
   display: flex;
   min-height: calc(100% - 250px);
 }
+
+::ng-deep {
+  .p-accordion-header-text {
+    font-size: 25px;
+    margin-left: 10px;
+  }
+}
+

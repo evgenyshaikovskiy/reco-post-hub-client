@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { IPublicUser } from '../../core/interfaces/request-interfaces';
+import { IHashtag, IPublicUser } from '../../core/interfaces/request-interfaces';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ export class TopicContentComponent implements OnInit {
   @Input({ required: true }) htmlContent!: string;
   @Input({ required: true }) user!: IPublicUser;
   @Input({ required: true }) createdAt!: Date;
-  @Input({ required: true }) hashtags!: string[];
+  @Input({ required: true }) hashtags!: IHashtag[];
 
   @ViewChild('topicHtml') topicHtmlContent!: ElementRef;
 

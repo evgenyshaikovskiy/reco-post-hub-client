@@ -20,7 +20,10 @@ import { ToastNotificationsService } from '../../../core/services/toast-notifica
 import { CreateTopicService } from '../create-topic.service';
 import { CreateTopicDto } from './topic-dtos';
 import { Router } from '@angular/router';
-import { IPublicUser } from '../../../core/interfaces/request-interfaces';
+import {
+  IHashtag,
+  IPublicUser,
+} from '../../../core/interfaces/request-interfaces';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -51,7 +54,7 @@ export class CreateTopicComponent implements OnInit {
       username: this.authService.User!.username,
       updatedAt: this.now,
       name: this.authService.User!.name,
-    }
+    };
   }
 
   public summarization: string = '';
@@ -68,6 +71,10 @@ export class CreateTopicComponent implements OnInit {
   private _selectedTextSubject = new Subject<TextSelectionEvent>();
   private _destroyRef = inject(DestroyRef);
   private _dialogRef: DynamicDialogRef | undefined;
+
+  public get hashtagTransform(): IHashtag[] {
+    return this.hashtags.map(hs => ({ name: hs, id: '' }));
+  }
 
   private get editorContent(): FormControl {
     return this.form.get('editorContent') as FormControl;
