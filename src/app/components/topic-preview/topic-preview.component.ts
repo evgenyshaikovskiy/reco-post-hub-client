@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IPublicTopic } from '../../core/interfaces/request-interfaces';
+import { ITopic } from '../../core/interfaces/request-interfaces';
 import { CommonModule } from '@angular/common';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ButtonModule } from 'primeng/button';
@@ -14,7 +14,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./topic-preview.component.scss'],
 })
 export class TopicPreviewComponent {
-  @Input({ required: true }) topic!: IPublicTopic;
+  @Input({ required: true }) topic!: ITopic;
 
   constructor(private readonly router: Router) {}
 

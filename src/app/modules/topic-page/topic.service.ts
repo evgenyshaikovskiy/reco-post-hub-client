@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   IComment,
-  IPublicTopic,
+  ITopic,
 } from '../../core/interfaces/request-interfaces';
 import { ICreateCommentDto } from './dtos';
 import { AUTH_INTERCEPT } from '../../core/interceptors/intercept.context';
@@ -12,8 +12,10 @@ import { AUTH_INTERCEPT } from '../../core/interceptors/intercept.context';
 export class TopicPageService {
   constructor(private readonly http: HttpClient) {}
 
-  public getTopicByUrl(url: string): Observable<IPublicTopic> {
-    return this.http.get<IPublicTopic>(`topic/${url}`);
+  public getTopicByUrl(url: string): Observable<ITopic> {
+    const context = new HttpContext();
+    context.set(AUTH_INTERCEPT, true);
+    return this.http.get<ITopic>(`topic/${url}`, { context });
   }
 
   public getTopicComments(topicId: string): Observable<IComment[]> {

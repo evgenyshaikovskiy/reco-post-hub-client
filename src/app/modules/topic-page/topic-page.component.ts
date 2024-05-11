@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import {
   IComment,
-  IPublicTopic,
+  ITopic,
 } from '../../core/interfaces/request-interfaces';
 import { TopicPageService } from './topic.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -17,7 +17,7 @@ import { extractTextFromHtml } from '../../core/utility/extract-text';
 export class TopicPageComponent {
   private destroyRef = inject(DestroyRef);
 
-  public topic!: IPublicTopic;
+  public topic!: ITopic;
   public comments!: IComment[];
 
   constructor(

@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, ResolveFn, Router } from '@angular/router';
 import {
   IComment,
-  IPublicTopic,
+  ITopic,
 } from '../../core/interfaces/request-interfaces';
 import { TopicPageService } from './topic.service';
 import { inject } from '@angular/core';
@@ -10,7 +10,7 @@ import { SpinnerService } from '../../core/services/spinner.service';
 import { catchError, finalize, map, of, switchMap } from 'rxjs';
 
 export const topicPageResolver: ResolveFn<
-  { topic: IPublicTopic; comments: IComment[] } | null
+  { topic: ITopic; comments: IComment[] } | null
 > = (route: ActivatedRouteSnapshot) => {
   const topicService = inject(TopicPageService);
   const notificationService = inject(ToastNotificationsService);

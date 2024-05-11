@@ -1,5 +1,5 @@
 export interface ICreateCommentDto {
-  authorId: number;
+  authorId: string;
   topicId: string;
   textContent: string;
   htmlContent: string;

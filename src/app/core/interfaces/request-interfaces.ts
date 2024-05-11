@@ -1,5 +1,7 @@
+import { IUser } from "./user.interface";
+
 export interface IPublicUser {
-  id: number;
+  id: string;
   name: string;
   username: string;
   email: string;
@@ -8,9 +10,9 @@ export interface IPublicUser {
   userPictureId: string;
 }
 
-export interface IPublicTopic {
+export interface ITopic {
   topicId: string;
-  authorId: number;
+  author: IUser;
   url: string;
   title: string;
   textContent: string;
@@ -19,7 +21,6 @@ export interface IPublicTopic {
   summarization: string;
   createdAt: Date;
   updatedAt: Date;
-  user: IPublicUser;
 }
 
 export interface IHashtag {
@@ -30,7 +31,7 @@ export interface IHashtag {
 export interface IComment {
   id: string;
 
-  authorId: number;
+  authorId: string;
 
   topicId: string;
 
