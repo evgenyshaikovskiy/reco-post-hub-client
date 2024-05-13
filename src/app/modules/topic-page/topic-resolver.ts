@@ -3,7 +3,7 @@ import {
   IComment,
   ITopic,
 } from '../../core/interfaces/request-interfaces';
-import { TopicPageService } from './topic.service';
+import { TopicPageService } from '../../core/services/topic.service';
 import { inject } from '@angular/core';
 import { ToastNotificationsService } from '../../core/services/toast-notifications.service';
 import { SpinnerService } from '../../core/services/spinner.service';

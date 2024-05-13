@@ -1,14 +1,11 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  IComment,
-  ITopic,
-} from '../../core/interfaces/request-interfaces';
-import { ICreateCommentDto } from './dtos';
-import { AUTH_INTERCEPT } from '../../core/interceptors/intercept.context';
+import { IComment, ITopic } from '../interfaces/request-interfaces';
+import { ICreateCommentDto } from '../../modules/topic-page/dtos';
+import { AUTH_INTERCEPT } from '../interceptors/intercept.context';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TopicPageService {
   constructor(private readonly http: HttpClient) {}
 

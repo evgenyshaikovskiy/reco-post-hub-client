@@ -16,7 +16,9 @@ export class ResourcesService {
     });
   }
 
-  public getFileByName(filename: string): Observable<unknown> {
-    return this._http.get('resource/' + filename);
+  public getFileByName(filename: string): Observable<Blob> {
+    return this._http.get('resource/' + filename, {
+      responseType: 'blob',
+    });
   }
 }

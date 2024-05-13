@@ -5,7 +5,7 @@ import {
   IComment,
   ITopic,
 } from '../../core/interfaces/request-interfaces';
-import { TopicPageService } from './topic.service';
+import { TopicPageService } from '../../core/services/topic.service';
 import { AuthService } from '../../core/services/auth.service';
 import { extractTextFromHtml } from '../../core/utility/extract-text';
 

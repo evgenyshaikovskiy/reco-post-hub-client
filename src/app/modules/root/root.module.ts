@@ -40,6 +40,11 @@ const routes: Routes = [
           import('./../profile/profile.module').then(m => m.ProfileModule),
       },
       {
+        path: 'settings',
+        loadChildren: () =>
+          import('./../settings/settings.module').then(m => m.SettingsModule),
+      },
+      {
         path: 'create-topic',
         loadChildren: () =>
           import('../create-paper/create-topic.module').then(

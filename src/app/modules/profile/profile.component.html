@@ -1,1 +1,32 @@
-<p>profile works!</p>
+@if (isLoaded) {
+  <div class="profile-page">
+    <div class="profile-data">
+      <div class="short-info">
+        <div class="picture">
+          <img [src]="url" alt="alt" class="img" />
+        </div>
+        <div class="info">
+          <p>{{ profile.username }}</p>
+          <p>Name: {{ profile.name }}</p>
+          <p>Joined at {{ profile.createdAt | date }}</p>
+          <p>Role: {{ profile.role }}</p>
+        </div>
+      </div>
+
+      <div class="information">
+        <!-- topics that user is writed -->
+      </div>
+    </div>
+
+    @if (isAuthenticated) {
+      <div class="actions">
+        <div class="button-wrapper">
+          <p-button
+            class="button"
+            label="Subscribe"
+            (onClick)="onSubscribe()"></p-button>
+        </div>
+      </div>
+    }
+  </div>
+}

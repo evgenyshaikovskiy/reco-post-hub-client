@@ -32,7 +32,7 @@ export class UserBarComponent {
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((message: string) => {
         this._notificationService.showNotification('info', message);
-        this._router.navigate(['home']);
+        this._router.navigate(['']);
       });
   }
 }

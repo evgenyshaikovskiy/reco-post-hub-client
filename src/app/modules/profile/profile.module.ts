@@ -2,18 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingsComponent } from './settings/settings.component';
-import { authGuard } from '../../core/guards/auth.guard';
-import { FileUploadModule } from 'primeng/fileupload';
+import { profilePageResolver } from './profile.resolver';
+import { profilePageGuard } from './profile-guard';
+import { ButtonModule } from 'primeng/button';
 
 const routes: Routes = [
-  { path: '', component: ProfileComponent },
-  { path: 'settings', component: SettingsComponent, canActivate: [authGuard] },
+  {
+    path: ':username',
+    component: ProfileComponent,
+    canActivate: [profilePageGuard],
+    resolve: { data: profilePageResolver },
+  },
 ];
 
 @NgModule({
-  declarations: [ProfileComponent, SettingsComponent],
-  imports: [CommonModule, FileUploadModule, RouterModule.forChild(routes)],
+  declarations: [ProfileComponent],
+  imports: [CommonModule, ButtonModule, RouterModule.forChild(routes)],
   providers: [],
 })
 export class ProfileModule {}
