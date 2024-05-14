@@ -130,7 +130,12 @@
   </div>
 </section>
 
-<p-overlayPanel #previewOverlay [showCloseIcon]="true">
+<p-overlayPanel
+  #previewOverlay
+  [showCloseIcon]="true"
+  class="preview-overlay"
+  [styleClass]="'preview-overlay'"
+  [draggable]="true">
   <div class="preview-wrapper">
     <app-topic-content
       [createdAt]="now"

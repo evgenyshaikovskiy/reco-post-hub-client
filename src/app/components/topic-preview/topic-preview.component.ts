@@ -21,4 +21,8 @@ export class TopicPreviewComponent {
   public navigateToTopicPage(): void {
     this.router.navigate([`topic/${this.topic.url}`]);
   }
+
+  public navigateToAuthor(): void {
+    this.router.navigate([`profile/${this.topic.author.username}`]);
+  }
 }

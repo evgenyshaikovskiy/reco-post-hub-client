@@ -26,8 +26,7 @@ export class TopicsComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
         this.topics = [...value.items];
-        this.store.dispatch(setSpinnerState({ state: true }));
-        // this.topics = [...value];
+        this.store.dispatch(setSpinnerState({ state: false }));
       });
   }
 }

@@ -29,6 +29,11 @@
 
       .author {
         color: black;
+        
+        &:hover {
+          cursor: pointer;
+          color: rgb(97, 97, 176);
+        }
       }
 
       .date-created {

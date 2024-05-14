@@ -164,7 +164,7 @@
 
 ::ng-deep .preview-wrapper {
   display: flex;
-  min-height: calc(100% - 250px);
+  // min-height: calc(100% - 250px);
 }
 
 ::ng-deep {
@@ -174,3 +174,18 @@
   }
 }
 
+::ng-deep {
+  .preview-overlay {
+    width: 100%;
+    top: 30px !important;
+    margin-top: 10px !important;
+    width: calc(100% - 125px) !important;
+    height: calc(100% - 125px) !important;
+    overflow-y: scroll;
+  }
+
+  .p-overlaypanel-close {
+    top: 1rem !important;
+    right: 1rem !important;
+  }
+}
