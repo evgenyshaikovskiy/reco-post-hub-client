@@ -1,4 +1,4 @@
-import { IUser } from "./user.interface";
+import { IUser } from './user.interface';
 
 export interface IPublicUser {
   id: string;
@@ -18,9 +18,17 @@ export interface ITopic {
   textContent: string;
   htmlContent: string;
   hashtags: IHashtag[];
+  scores: IScore[];
   summarization: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IScore {
+  id: string;
+  actor: IUser;
+  score: number;
+  topic: ITopic;
 }
 
 export interface IHashtag {

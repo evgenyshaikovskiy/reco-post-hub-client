@@ -7,6 +7,10 @@
     [createdAt]="topic.createdAt"
     [hashtags]="topic.hashtags"></app-topic-content>
 
+  @if (isLoggedIn) {
+    <app-score [topicId]="topic.topicId" [score$]="relativeScore$"></app-score>
+  }
+
   <app-comment-section
     [comments]="comments"
     (sendCommentEvent)="sendComment($event)"></app-comment-section>

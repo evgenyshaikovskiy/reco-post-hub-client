@@ -1,0 +1,21 @@
+<div class="score-wrapper">
+  <p class="label">Give this article a rating!</p>
+  <div class="stars">
+    <!-- pi-star pi-star-fill -->
+    @for (item of stars; track $index) {
+      <div
+        class="star-wrapper"
+        (click)="onStarClick($index)"
+        tabindex="0"
+        (keydown.enter)="onStarClick($index)"
+        (mouseenter)="hoverMouseOnElement($index)"
+        (mouseleave)="leaveMouse()">
+        @if (item.filled) {
+          <i class="pi pi-star" style="font-size: 2rem; color: gold"></i>
+        } @else {
+          <i class="pi pi-star" style="font-size: 2rem"></i>
+        }
+      </div>
+    }
+  </div>
+</div>

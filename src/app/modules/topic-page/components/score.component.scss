@@ -1,0 +1,19 @@
+.score-wrapper {
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .label {
+    font-size: large;
+  }
+
+  .stars {
+    .star-wrapper {
+      cursor: pointer;
+    }
+    display: flex;
+    gap: 1px;
+  }
+}

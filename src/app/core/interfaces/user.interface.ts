@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICredentials } from './credentials.interface';
-import { ITopic } from './request-interfaces';
+import { IScore, ITopic } from './request-interfaces';
 
 export interface IUser {
   id: string;
@@ -12,6 +12,7 @@ export interface IUser {
   userPictureId: string;
   subscriptions: ISubscription[];
   topics: ITopic[];
+  scores: IScore[];
   role: UserRole;
 
   createdAt: Date;

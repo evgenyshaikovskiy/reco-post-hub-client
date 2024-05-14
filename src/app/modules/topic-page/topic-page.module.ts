@@ -5,6 +5,7 @@ import { TopicPageService } from '../../core/services/topic.service';
 import { topicPageResolver } from './topic-resolver';
 import { TopicContentComponent } from '../../components/topic-content/topic-content.component';
 import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
+import { ScoreComponent } from './components/score.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TopicPageComponent],
+  declarations: [TopicPageComponent, ScoreComponent],
   imports: [
     RouterModule.forChild(routes),
     TopicContentComponent,

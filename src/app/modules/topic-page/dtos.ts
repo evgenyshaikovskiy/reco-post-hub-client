@@ -5,3 +5,13 @@ export interface ICreateCommentDto {
   htmlContent: string;
   mentionedProfileIds: number[];
 }
+
+export interface ICreateScoreDto {
+  score: number;
+  topicId: string;
+}
+
+export interface IUpdateScoreDto {
+  score: number;
+  id: string;
+}
