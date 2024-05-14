@@ -1,13 +1,10 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../../core/services/auth.service';
-import { ToastNotificationsService } from '../../core/services/toast-notifications.service';
 import { Router } from '@angular/router';
 import { UserSignInDto } from '../../core/interfaces/user-sign-in.interface';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize } from 'rxjs';
-import { SUCCESS_LOGIN_MESSAGE } from '../../core/consts/consts';
 import { markAllAsDirty } from '../../core/utility';
+import { Store } from '@ngrx/store';
+import { signIn } from '../../store/actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,12 +20,9 @@ export class SignInComponent {
 
   public isLoading: boolean = false;
 
-  private _destroyRef = inject(DestroyRef);
-
   constructor(
     private readonly _fb: FormBuilder,
-    private readonly authService: AuthService,
-    private readonly toastNotificationsService: ToastNotificationsService,
+    private readonly store: Store,
     private readonly router: Router
   ) {}
 
@@ -39,27 +33,7 @@ export class SignInComponent {
         ...formValues,
       };
 
-      this.isLoading = true;
-      this.authService
-        .signIn(dto)
-        .pipe(
-          takeUntilDestroyed(this._destroyRef),
-          finalize(() => (this.isLoading = false))
-        )
-        .subscribe(result => {
-          // TODO: refactor this logic without ifs
-          if (result === SUCCESS_LOGIN_MESSAGE) {
-            this.toastNotificationsService.showNotification(
-              'success',
-              'You were logged in successfully'
-            );
-
-            this.router.navigate(['profile']);
-          } else {
-            this.toastNotificationsService.showNotification('info', result);
-            this.form.reset();
-          }
-        });
+      this.store.dispatch(signIn({ data: dto }));
     } else {
       markAllAsDirty(this.form);
     }

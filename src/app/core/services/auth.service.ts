@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { UserSignUpDto } from '../interfaces/user-sign-up.interface';
-import { Observable, catchError, finalize, map, of } from 'rxjs';
+import { Observable, catchError, finalize, of } from 'rxjs';
 import { UserSignInDto } from '../interfaces/user-sign-in.interface';
 import { IAuthResult } from '../interfaces/auth-result.interface';
 import {
@@ -9,13 +9,14 @@ import {
   ACCESS_TOKEN_LOCAL_STORAGE_KEY,
   REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY,
   REFRESH_TOKEN_LOCAL_STORAGE_KEY,
-  USER_LOCAL_STORAGE_KEY,
 } from '../consts/keys';
-import { SUCCESS_LOGIN_MESSAGE } from '../consts/consts';
 import { IUser } from '../interfaces/user.interface';
 import { LogOutDto, RefreshTokenDto } from '../interfaces/refresh-token.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import moment from 'moment';
+import { AUTH_CONTEXT } from '../interceptors/intercept.context';
+import { Store } from '@ngrx/store';
+import { getUserInfo } from '../../store/selectors';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -24,11 +25,21 @@ export class AuthService {
   private _user?: IUser;
 
   public get User(): IUser | null {
-    this.checkUser();
     return this._user ?? null;
   }
 
-  constructor(private readonly _http: HttpClient) {}
+  constructor(
+    private readonly _http: HttpClient,
+    private readonly store: Store
+  ) {
+    this.store
+      .select(getUserInfo)
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(user => {
+        console.log('fetched user data', user);
+        this._user = user;
+      });
+  }
 
   public signUp(dto: UserSignUpDto): Observable<string> {
     return this._http
@@ -38,15 +49,11 @@ export class AuthService {
       .pipe(takeUntilDestroyed(this._destroyRef));
   }
 
-  public signIn(dto: UserSignInDto): Observable<string> {
+  public signIn(dto: UserSignInDto): Observable<IAuthResult | null> {
     return this._http.post<IAuthResult>('auth/sign-in', dto).pipe(
       takeUntilDestroyed(this._destroyRef),
-      map(authResult => {
-        this.setSession(authResult);
-        return SUCCESS_LOGIN_MESSAGE;
-      }),
-      catchError(err => {
-        return of(`${err.error.error}: ${err.error.message}`);
+      catchError(() => {
+        return of(null);
       })
     );
   }
@@ -106,19 +113,14 @@ export class AuthService {
       String(authResult.refreshToken.expiredAt)
     );
 
-    localStorage.setItem(
-      USER_LOCAL_STORAGE_KEY,
-      JSON.stringify(authResult.user)
-    );
-
     this._user = { ...authResult.user };
   }
 
   public isLoggedIn(): boolean {
     const expiration = this.getExpiration();
-    this.checkUser();
     if (expiration) {
-      return moment().isBefore(expiration);
+      const before = moment().isBefore(expiration);
+      return before;
     }
 
     return false;
@@ -135,14 +137,8 @@ export class AuthService {
     return expiration ? moment(JSON.parse(expiration)) : null;
   }
 
-  public checkUser(): void {
-    if (!this._user) {
-      const retrievedUser = localStorage.getItem(USER_LOCAL_STORAGE_KEY);
-      if (retrievedUser) {
-        const userData = JSON.parse(retrievedUser) as IUser;
-        this._user = { ...userData };
-      }
-    }
+  public fetchUser(): Observable<IUser> {
+    return this._http.get<IUser>(`user`, { context: AUTH_CONTEXT });
   }
 
   private _clearAfterLogout() {
@@ -150,7 +146,5 @@ export class AuthService {
     localStorage.removeItem(REFRESH_TOKEN_LOCAL_STORAGE_KEY);
     localStorage.removeItem(ACCESS_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY);
     localStorage.removeItem(REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY);
-    localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
-    this._user = undefined;
   }
 }

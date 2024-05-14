@@ -8,6 +8,11 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { originApiInterceptor } from './core/interceptors/origin.interceptor';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { ApplicationEffects } from './store/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { reducers } from './store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +23,8 @@ export const appConfig: ApplicationConfig = {
     ),
     MessageService,
     DialogService,
+    provideStore(reducers),
+    provideStoreDevtools(),
+    provideEffects([ApplicationEffects]),
   ],
 };

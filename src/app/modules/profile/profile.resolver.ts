@@ -1,20 +1,21 @@
 import { ActivatedRouteSnapshot, ResolveFn, Router } from '@angular/router';
 import { IUserProfile } from '../../core/interfaces/user.interface';
 import { ProfileService } from '../../core/services/profile.service';
-import { SpinnerService } from '../../core/services/spinner.service';
 import { inject } from '@angular/core';
 import { ToastNotificationsService } from '../../core/services/toast-notifications.service';
 import { catchError, finalize, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { setSpinnerState } from '../../store/actions';
 
 export const profilePageResolver: ResolveFn<IUserProfile | null> = (
   route: ActivatedRouteSnapshot
 ) => {
   const profileService = inject(ProfileService);
   const router = inject(Router);
-  const spinnerService = inject(SpinnerService);
   const notificationService = inject(ToastNotificationsService);
+  const store = inject(Store);
 
-  spinnerService.changeLoadingState(true);
+  store.dispatch(setSpinnerState({ state: true }));
   console.log(route.paramMap.get('username'));
 
   return profileService.getUserProfile(route.paramMap.get('username')!).pipe(
@@ -24,6 +25,6 @@ export const profilePageResolver: ResolveFn<IUserProfile | null> = (
       router.navigate(['']);
       return of(null);
     }),
-    finalize(() => spinnerService.changeLoadingState(false))
+    finalize(() => store.dispatch(setSpinnerState({ state: true })))
   );
 };

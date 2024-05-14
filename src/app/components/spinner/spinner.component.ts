@@ -13,6 +13,6 @@ import { BlockUIModule } from 'primeng/blockui';
 })
 export class SpinnerComponent {
   public isLoading$: Observable<boolean> =
-    this._spinnerService.loadingInProcess$;
+    this._spinnerService.loadingInProgress$;
   constructor(private readonly _spinnerService: SpinnerService) {}
 }

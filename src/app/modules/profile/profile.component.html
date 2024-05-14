@@ -21,10 +21,19 @@
     @if (isAuthenticated) {
       <div class="actions">
         <div class="button-wrapper">
-          <p-button
-            class="button"
-            label="Subscribe"
-            (onClick)="onSubscribe()"></p-button>
+          @if (isSubbed) {
+            <p-button
+              [loading]="subscriptionButtonPending"
+              class="button"
+              label="Unsubscribe"
+              (onClick)="onUnsubscribe()"></p-button>
+          } @else {
+            <p-button
+              [loading]="subscriptionButtonPending"
+              class="button"
+              label="Subscribe"
+              (onClick)="onSubscribe()"></p-button>
+          }
         </div>
       </div>
     }
