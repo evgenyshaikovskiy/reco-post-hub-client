@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ITopic } from '../../../core/interfaces/request-interfaces';
 import { Store } from '@ngrx/store';
 import { setSpinnerState } from '../../../store/actions';
+import { FilterRule } from '../../../core/utility/interfaces';
 
 @Component({
   selector: 'app-topics',
@@ -22,7 +23,11 @@ export class TopicsComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(setSpinnerState({ state: true }));
     this.topicsService
-      .getTopics()
+      .getTopics(
+        { size: 10, page: 0 },
+        { property: 'published', rule: FilterRule.EQUALS, value: 'true' },
+        { property: 'createdAt', direction: 'desc' }
+      )
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value => {
         this.topics = [...value.items];

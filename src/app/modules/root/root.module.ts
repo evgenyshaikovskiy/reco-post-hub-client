@@ -3,6 +3,7 @@ import { RootComponent } from './root.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
 import { authGuard } from '../../core/guards/auth.guard';
+import { adminGuard } from '../../core/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -44,6 +45,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./../settings/settings.module').then(m => m.SettingsModule),
         canActivate: [authGuard],
+      },
+      {
+        path: 'review',
+        loadChildren: () =>
+          import('./../review/review.module').then(m => m.ReviewModule),
+        canActivate: [authGuard, adminGuard],
       },
       {
         path: 'create-topic',

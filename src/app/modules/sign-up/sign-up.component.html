@@ -137,11 +137,13 @@
         </ng-container>
       }
     </div>
-    <p-button
-      type="submit"
-      styleClass="form__button"
-      [style]="{ 'min-height': '3.5rem', width: '10rem' }"
-      label="Sign Up"
-      [loading]="isLoading"></p-button>
+    <div class="button-wrapper">
+      <p-button
+        type="submit"
+        styleClass="form__button"
+        [style]="{ 'min-height': '3.5rem', width: '10rem' }"
+        label="Sign Up"
+        [loading]="isLoading"></p-button>
+    </div>
   </form>
 </div>

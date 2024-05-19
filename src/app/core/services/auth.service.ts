@@ -36,7 +36,6 @@ export class AuthService {
       .select(getUserInfo)
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(user => {
-        console.log('fetched user data', user);
         this._user = user;
       });
   }

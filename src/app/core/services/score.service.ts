@@ -18,7 +18,6 @@ export class ScoreService {
   }
 
   public removeRating(id: string): Observable<IScore> {
-    console.log(id);
     return this._http.delete<IScore>(`score/${id}`, { context: AUTH_CONTEXT });
   }
 }
