@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { ToastNotificationType } from '../types/notification-type';
+import { ToastNotificationType } from '../types/types';
 
 @Injectable({ providedIn: 'root' })
 export class ToastNotificationsService {

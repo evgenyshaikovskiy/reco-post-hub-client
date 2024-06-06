@@ -6,6 +6,7 @@ import { topicPageResolver } from './topic-resolver';
 import { TopicContentComponent } from '../../components/topic-content/topic-content.component';
 import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
 import { ScoreComponent } from './components/score.component';
+import { ButtonModule } from 'primeng/button';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TopicContentComponent,
     CommentSectionComponent,
+    ButtonModule,
   ],
   providers: [TopicPageService],
 })

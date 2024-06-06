@@ -1,9 +1,14 @@
 export interface ICreateCommentDto {
-  authorId: string;
   topicId: string;
   textContent: string;
   htmlContent: string;
-  mentionedProfileIds: number[];
+}
+
+export interface ICreateAnswerDto {
+  topicId: string;
+  textContent: string;
+  htmlContent: string;
+  parentCommentId: string;
 }
 
 export interface ICreateScoreDto {
@@ -14,4 +19,8 @@ export interface ICreateScoreDto {
 export interface IUpdateScoreDto {
   score: number;
   id: string;
+}
+
+export interface IUpdateTopicDto {
+  published: boolean;
 }

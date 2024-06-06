@@ -3,13 +3,17 @@
   <div class="topic-meta">
     <h4 class="author">By {{ user.name }}</h4>
     <p class="date-created">
-      {{ createdAt | date: 'd, MMM, YYYY hh:mm' }}
+      {{ createdAt | date: 'd MMM, YYYY HH:mm Z' }}
     </p>
-    <div class="hashtags">
+    <app-hashtag-list
+      [hashtags]="hashtags"
+      [textSize]="18"
+      [isPreview]="isPreview"></app-hashtag-list>
+    <!-- <div class="hashtags">
       @for (hashtag of hashtags; track $index) {
         <p class="hashtag">#{{ hashtag.name }}</p>
       }
-    </div>
+    </div> -->
   </div>
   <div class="topic-content" #topicHtml [innerHTML]="htmlContent"></div>
 </div>

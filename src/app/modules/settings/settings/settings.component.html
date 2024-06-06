@@ -1,26 +1,86 @@
-<div>
-  Data:
-  {{ profileInfo | json }}
-</div>
+<div class="settings-wrapper">
+  <div class="picture-wrapper">
+    <div class="picture">
+      <img [src]="url" alt="alt" class="img" />
+    </div>
+    <div class="file-upload-wrapper">
+      <div class="loader">
+        <p-fileUpload
+          name="file-upload"
+          chooseLabel="Load Profile Picture"
+          accept="image/png"
+          uploadLabel="Update Profile Picture"
+          cancelLabel="Clear Selection"
+          (onSelect)="onProfilePictureUpload($event)"
+          [showUploadButton]="false"
+          (onClear)="onClear()"></p-fileUpload>
+      </div>
 
-<div class="file-upload-wrapper">
-  <div class="loader">
-    <p-fileUpload
-      name="file-upload"
-      chooseLabel="Load Profile Picture"
-      accept="image/png"
-      uploadLabel="Update Profile Picture"
-      cancelLabel="Clear Selection"
-      (onSelect)="onProfilePictureUpload($event)"
-      [showUploadButton]="false"
-      (onClear)="onClear()"></p-fileUpload>
+      <div class="button-wrapper">
+        <p-button
+          class="button"
+          label="Apply"
+          (onClick)="onSend()"
+          [disabled]="isFileLoaded"></p-button>
+      </div>
+    </div>
   </div>
+  <div class="short-info">
+    <p class="value">Name: {{ profileInfo?.name }}</p>
+    <p class="value">Role: {{ profileInfo?.role }}</p>
+    <p class="value">Email: {{ profileInfo?.email }}</p>
+    <p class="value">Username: {{ profileInfo?.username }}</p>
+    <p class="value" pTooltip="Updates every hour" tooltipPosition="top">
+      Rating: {{ profileInfo?.rating }}
+    </p>
+    <p class="value" pTooltip="Updates every hour" tooltipPosition="top">
+      Karma: {{ profileInfo?.karma }}
+    </p>
+    <div class="bio">
+      <div class="bio-text" [ngClass]="{ 'no-overflow': !profileInfo?.bio }">
+        Bio: {{ profileInfo?.bio }}
+      </div>
 
-  <div class="button-wrapper">
-    <p-button
-      class="button"
-      label="Apply"
-      (onClick)="onSend()"
-      [disabled]="isFileLoaded"></p-button>
+      <div class="button-wrapper">
+        <p-overlayPanel #op>
+          <div class="edit-bio">
+            <form [formGroup]="bioForm">
+              <textarea
+                placeholder="Enter your bio"
+                pInputTextarea
+                class="textarea-bio-input"
+                rows="5"
+                cols="30"
+                formControlName="bio"></textarea>
+            </form>
+
+            <div class="submit-button-wrapper">
+              <p-button
+                class="submit-button"
+                (onClick)="onUpdateBio(); op.toggle($event)"
+                label="Update"></p-button>
+            </div>
+          </div>
+        </p-overlayPanel>
+        <p-button
+          class="button"
+          (onClick)="op.toggle($event)"
+          icon="pi pi-pencil"
+          [rounded]="true"
+          severity="secondary"></p-button>
+      </div>
+    </div>
+    <div class="buttons">
+      <div class="privacy-settings-button-wrapper">
+        <p-button
+          class="button"
+          label="Change privacy settings"
+          (onClick)="openPrivacySettings()"></p-button>
+      </div>
+
+      <div class="change-password-button-wrapper">
+        <p-button class="button" label="Change password"></p-button>
+      </div>
+    </div>
   </div>
 </div>

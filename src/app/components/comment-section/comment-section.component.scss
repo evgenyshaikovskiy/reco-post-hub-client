@@ -26,12 +26,64 @@
     display: flex;
     flex-flow: column;
     .comment {
+      padding: 10px;
+      display: flex;
+      flex-flow: column;
+      gap: 5px;
+
+      .comment-author {
+        display: flex;
+        flex-flow: column;
+        gap: 4px;
+
+        .date {
+          color: black;
+          font-weight: 700;
+          font-size: medium;
+        }
+
+        .username {
+          cursor: pointer;
+          font-size: large;
+          font-weight: 600;
+          color: rgb(92, 92, 236);
+
+          &:hover {
+            color: rgb(0, 0, 87);
+          }
+        }
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+
+        .reply {
+          width: 50px;
+          height: 30px;
+        }
+      }
     }
   }
 
   .write-comment {
-    .comment-editor {
+    .reply-wrapper {
+      padding: 5px;
+      display: flex;
+      gap: 10px;
+      height: 30px;
+      p {
+        align-items: center;
+        font-weight: 600;
+        font-size: large;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
+      .wrap {
+        width: 20px;
+      }
     }
 
     .button-wrapper {
@@ -44,8 +96,5 @@
         height: 100%;
       }
     }
-  }
-
-  .not-authenticated-message {
   }
 }

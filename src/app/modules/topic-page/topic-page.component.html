@@ -5,13 +5,31 @@
     [title]="topic.title"
     [user]="topic.author"
     [createdAt]="topic.createdAt"
-    [hashtags]="topic.hashtags"></app-topic-content>
+    [hashtags]="topic.hashtags"
+    [isPreview]="false"></app-topic-content>
 
-  @if (isLoggedIn) {
+  @if (isLoggedIn && topic.published) {
     <app-score [topicId]="topic.topicId" [score$]="relativeScore$"></app-score>
   }
 
-  <app-comment-section
-    [comments]="comments"
-    (sendCommentEvent)="sendComment($event)"></app-comment-section>
+  @if (topic.published) {
+    <app-comment-section
+      [comments]="comments"
+      (sendCommentEvent)="sendComment($event)"
+      (sendReplyEvent)="sendReply($event)"></app-comment-section>
+  }
+
+  @if (!topic.published && isAllowedToReview) {
+    <div class="wrapper-review-buttons">
+      <div class="wrapper-review button-label-uppercase button-label-r-16">
+        <p-button label="Publish" (onClick)="submit()"></p-button>
+      </div>
+      <div class="wrapper-delete button-label-uppercase button-label-r-16">
+        <p-button
+          label="Delete"
+          (onClick)="remove()"
+          severity="warning"></p-button>
+      </div>
+    </div>
+  }
 </div>

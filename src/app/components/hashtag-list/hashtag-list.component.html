@@ -1,0 +1,43 @@
+<div class="topic-hashtags">
+  @for (item of hashtags; track $index) {
+    <div
+      class="hashtag"
+      [style]="style"
+      (click)="op.toggle($event)"
+      tabindex="0"
+      (keydown.enter)="op.toggle($event)">
+      #{{ item.name }}
+    </div>
+    <p-overlayPanel #op>
+      @if (!isPreview) {
+        <div class="wrapper">
+          <div class="subscribe button-label-r-16" *ngIf="isAuthenticated">
+            @if (isSubbed(item.id)) {
+              <p-button
+                [text]="true"
+                severity="warning"
+                (onClick)="unsubscribeFromHashtag(item.id)"
+                >Unsubscribe</p-button
+              >
+            } @else {
+              <p-button
+                [text]="true"
+                severity="success"
+                (onClick)="subscribeToHashtag(item.id)"
+                >Subscribe</p-button
+              >
+            }
+          </div>
+          <div class="view" class="button-label-r-16">
+            <p-button
+              [text]="true"
+              severity="secondary"
+              (onClick)="onRead(item.name)"
+              >Read</p-button
+            >
+          </div>
+        </div>
+      }
+    </p-overlayPanel>
+  }
+</div>

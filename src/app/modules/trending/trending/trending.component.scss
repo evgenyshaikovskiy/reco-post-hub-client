@@ -1,0 +1,19 @@
+@import 'mixins';
+
+.topics-page {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    font-size: 30px;
+    padding: 1rem;
+    background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+    @include gradient-text;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

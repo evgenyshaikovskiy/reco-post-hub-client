@@ -1,5 +1,5 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -16,7 +16,9 @@ import { reducers } from './store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    importProvidersFrom(
+      RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' })
+    ),
     provideAnimations(),
     provideHttpClient(
       withInterceptors([originApiInterceptor, authInterceptor])

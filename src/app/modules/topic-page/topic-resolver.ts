@@ -6,6 +6,8 @@ import { ToastNotificationsService } from '../../core/services/toast-notificatio
 import { catchError, finalize, map, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { setSpinnerState } from '../../store/actions';
+import { AuthService } from '../../core/services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const topicPageResolver: ResolveFn<
   { topic: ITopic; comments: IComment[] } | null
@@ -14,18 +16,34 @@ export const topicPageResolver: ResolveFn<
   const notificationService = inject(ToastNotificationsService);
   const router = inject(Router);
   const store = inject(Store);
+  const authService = inject(AuthService);
 
   store.dispatch(setSpinnerState({ state: true }));
 
   return topicService.getTopicByUrl(route.paramMap.get('url')!).pipe(
+    map(topic => {
+      const user = authService.User;
+      const notAllowedToViewUnpublished = !authService.isAllowedToReviewTopic;
+      if (!topic.published && !user) {
+        throw new Error('Unauthorized users cannot view this article.');
+      }
+
+      if (!topic.published && notAllowedToViewUnpublished) {
+        throw new Error('You cannot view this article.');
+      }
+
+      return { topic };
+    }),
     switchMap(topic =>
       topicService
-        .getTopicComments(topic.topicId)
-        .pipe(map(comments => ({ comments: comments, topic: topic })))
+        .getComments(topic.topic.topicId)
+        .pipe(map(comments => ({ comments: comments, topic: topic.topic })))
     ),
     catchError(error => {
-      console.log(error);
-      notificationService.showNotification('error', 'Topic not found!');
+      const message = (error as HttpErrorResponse)
+        ? (error as HttpErrorResponse).error['message']
+        : (error as string);
+      notificationService.showNotification('error', message);
       router.navigate(['']);
       return of(null);
     }),

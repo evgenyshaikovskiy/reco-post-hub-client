@@ -44,8 +44,7 @@ export class TextSelectionDialogComponent {
       .correctGrammar(this.selectedText)
       .pipe(takeUntilDestroyed(this._destoyRef))
       .subscribe(result => {
-        console.log(result);
-        // this.correctionResult = result;
+        this.correctionResult = result.toString();
       });
   }
 

@@ -8,7 +8,7 @@
         <div class="info">
           <p>{{ profile.username }}</p>
           <p>Name: {{ profile.name }}</p>
-          <p>Joined at {{ profile.createdAt | date }}</p>
+          <p>Joined at {{ profile.createdAt | date: 'd MMM, YYYY HH:mm Z' }}</p>
           <p>Role: {{ profile.role }}</p>
         </div>
       </div>

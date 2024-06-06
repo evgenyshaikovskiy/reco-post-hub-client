@@ -18,6 +18,9 @@ export interface ITopic {
   textContent: string;
   htmlContent: string;
   hashtags: IHashtag[];
+  comments: IComment[];
+  published: boolean;
+  totalScore: number;
   scores: IScore[];
   summarization: string;
   createdAt: Date;
@@ -38,18 +41,12 @@ export interface IHashtag {
 
 export interface IComment {
   id: string;
-
-  authorId: string;
-
+  author: IUser;
   topicId: string;
-
   textContent: string;
-
   htmlContent: string;
-
-  mentionedProfileIds: number[];
-
+  parentComment?: IComment;
+  childComments: IComment[];
   createdAt: Date;
-
   updatedAt: Date;
 }

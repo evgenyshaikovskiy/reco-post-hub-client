@@ -5,7 +5,6 @@ import {
   debounceTime,
   filter,
   finalize,
-  map,
   of,
   Subject,
 } from 'rxjs';
@@ -90,17 +89,6 @@ export class CreateTopicComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.form
-      .get('editorContent')
-      ?.valueChanges.pipe(
-        filter(content => !!content),
-        map(content => extractTextFromHtml(String(content))),
-        takeUntilDestroyed(this._destroyRef)
-      )
-      .subscribe(text => {
-        console.log('text', text);
-      });
-
     // selection text event
     this._selectedTextSubject
       .pipe(
@@ -109,7 +97,6 @@ export class CreateTopicComponent implements OnInit {
         debounceTime(500)
       )
       .subscribe(selectedText => {
-        console.log(selectedText);
         this._dialogRef = this.dialogService.open(
           TextSelectionDialogComponent,
           {
@@ -177,7 +164,6 @@ export class CreateTopicComponent implements OnInit {
         })
       )
       .subscribe(text => {
-        console.log(text, 'summarization');
         this.summarization = text;
       });
   }
@@ -200,7 +186,6 @@ export class CreateTopicComponent implements OnInit {
         finalize(() => (this.hashtagsLoading = false))
       )
       .subscribe(value => {
-        console.log('hashtags', value);
         this.hashtags = [...new Set([...this.hashtags, ...value])];
       });
   }
@@ -213,7 +198,6 @@ export class CreateTopicComponent implements OnInit {
       .pipe(
         takeUntilDestroyed(this._destroyRef),
         catchError(() => {
-          console.log('HERE ERROR');
           this.titleLoading = false;
           this.notificationService.showNotification(
             'error',

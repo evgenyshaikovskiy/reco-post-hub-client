@@ -27,10 +27,9 @@ export const authInterceptor: HttpInterceptorFn = (
     if (error.status === 401 || error.status === 403) {
       authService.logOut();
       router.navigate(['sign-in']);
-      console.log(error);
       notificationService.showNotification(
         'error',
-        'Error during communication with API. Check your credentials and sign-in again.'
+        'Error during authentication. Check your credentials and sign-in again.'
       );
     }
 
@@ -44,10 +43,13 @@ export const authInterceptor: HttpInterceptorFn = (
       })
     ).pipe(
       catchError(error => {
-        if (error.status === 401 || error.status === 403) {
+        if (
+          error.status === 401 ||
+          error.status === 403 ||
+          error.error.message === 'Token expired'
+        ) {
           return authService.refresh().pipe(
             switchMap(authData => {
-              console.log(authData);
               authService.setSession(authData);
               request = request.clone({
                 headers: request.headers.set(

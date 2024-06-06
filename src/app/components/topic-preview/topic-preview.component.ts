@@ -4,11 +4,20 @@ import { CommonModule } from '@angular/common';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule } from '@angular/router';
+import { RatingPipe } from './rating-pipe';
+import { HashtagListComponent } from '../hashtag-list/hashtag-list.component';
 
 @Component({
   selector: 'app-topic-preview',
   standalone: true,
-  imports: [CommonModule, OverlayPanelModule, ButtonModule, RouterModule],
+  imports: [
+    CommonModule,
+    OverlayPanelModule,
+    ButtonModule,
+    RatingPipe,
+    HashtagListComponent,
+    RouterModule,
+  ],
   providers: [],
   templateUrl: './topic-preview.component.html',
   styleUrls: ['./topic-preview.component.scss'],

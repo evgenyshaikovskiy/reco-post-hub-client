@@ -1,1 +1,10 @@
-<p>trending works!</p>
+<div class="topics-page">
+  <div class="header">
+    <h1>Most popular topics on the platform</h1>
+  </div>
+  <div class="content">
+    @for (topic of topics; track $index) {
+      <app-topic-preview [topic]="topic"></app-topic-preview>
+    }
+  </div>
+</div>

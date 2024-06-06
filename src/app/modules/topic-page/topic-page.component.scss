@@ -1,0 +1,17 @@
+.topic-page {
+  .wrapper-review-buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    .wrapper-delete, .wrapper-review {
+      width: 30%;
+      height: 40px;
+
+      .p-button-label {
+        font-size: large;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

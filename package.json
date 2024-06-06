@@ -25,6 +25,7 @@
     "@ngrx/store-devtools": "^17.2.0",
     "moment": "^2.30.1",
     "ngx-editor": "^17.0.2",
+    "ngx-infinite-scroll": "^18.0.0",
     "primeicons": "^6.0.1",
     "primeng": "^17.4.0",
     "rxjs": "~7.8.0",

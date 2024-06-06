@@ -81,4 +81,42 @@ body {
   border-radius: 6px;
 }
 
+:root {
+  .no-overflow {
+    overflow: hidden !important;
+  }
+
+  .button-label-uppercase {
+    .p-element {
+      .p-button {
+        text-transform: uppercase !important;
+      }
+    }
+  } 
+  
+  .button-label-r-16 {
+    .p-element {
+      .p-button {
+        font-weight: bold;
+        font-size: 16px !important;
+      }
+    }
+  }
+
+  .button-label-r-14 {
+    .p-element {
+      .p-button {
+        font-size: 14px !important;
+      }
+    }
+  }
+
+  .button-label-r-18 {
+    .p-element {
+      .p-button {
+        font-size: 18px !important;
+      }
+    }
+  }
+}
 

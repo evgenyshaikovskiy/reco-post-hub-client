@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICredentials } from './credentials.interface';
-import { IScore, ITopic } from './request-interfaces';
+import { IComment, IScore, ITopic } from './request-interfaces';
 
 export interface IUser {
   id: string;
@@ -8,7 +8,11 @@ export interface IUser {
   username: string;
   email: string;
   confirmed: boolean;
+  bio: string;
+  karma: number;
+  rating: number;
   credentials: ICredentials;
+  settings: ISettings;
   userPictureId: string;
   subscriptions: ISubscription[];
   topics: ITopic[];
@@ -17,6 +21,17 @@ export interface IUser {
 
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ISettings {
+  showBio: boolean;
+  showEmail: boolean;
+  showUserSubscriptions: boolean;
+  showHashtagSubscriptions: boolean;
+  showComments: boolean;
+  showKarma: boolean;  
+  showRating: boolean;
+  showScores: boolean;
 }
 
 export interface ISubscription {
@@ -42,14 +57,18 @@ export interface IUserProfile {
   id: string;
   name: string;
   username: string;
-  email: string;
-  confirmed: boolean;
   role: UserRole;
   createdAt: Date;
   updatedAt: Date;
   userPictureId: string;
+  
+  bio?: string;
+  email?: string;
+  subscriptions?: ISubscription[];
+  hashtagSubscriptions?: ISubscription[];
+  comments?: IComment[];
+  
 
-  // relationships
-  subscriptions: ISubscription[];
-  topics: ITopic[];
+  karma?: number;
+  rating?: number;
 }

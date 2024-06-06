@@ -9,7 +9,6 @@ import {
   ISortingParams,
 } from '../../core/utility/interfaces';
 import { ITopic } from '../../core/interfaces/request-interfaces';
-import { AUTH_CONTEXT } from '../../core/interceptors/intercept.context';
 
 @Injectable({ providedIn: 'root' })
 export class TopicsService {
@@ -41,17 +40,7 @@ export class TopicsService {
     );
   }
 
-  public getTopicsForReview(
-    paginationParams: IPagination = { size: 10, page: 0 }
-  ): Observable<IPaginatedData<ITopic>> {
-    const spreaded: any = {
-      ...paginationParams,
-    };
-
-    const resource = new URLSearchParams(spreaded);
-    return this._http.get<IPaginatedData<ITopic>>(
-      `topic/review/all${resource.toString()}`,
-      { context: AUTH_CONTEXT }
-    );
+  public getTopicsWithHashtags(hashtags: string): Observable<ITopic[]> {
+    return this._http.get<ITopic[]>(`topic/hashtags/${hashtags}`);
   }
 }

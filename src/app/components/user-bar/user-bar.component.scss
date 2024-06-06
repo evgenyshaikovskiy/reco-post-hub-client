@@ -1,9 +1,39 @@
 @import 'variables';
 @import 'mixins';
 
+:root ::ng-deep {
+  .notificationOverlay {
+    right: 0rem !important;
+    left: unset !important;
+  }
+}
+
 :host {
   @include flex-row-align-center;
 }
+
+.c-user-bar {
+  display: flex;
+  .notification-count {
+    position: relative;
+    top: -0.5rem;
+    right: 0rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-weight: 600;
+    border: 1px solid rgb(124, 0, 0);
+    background-color: rgb(124, 0, 0);
+    color: white;
+
+    cursor: pointer;
+  }
+}
+
 
 ::ng-deep {
   .user-bar__actions {

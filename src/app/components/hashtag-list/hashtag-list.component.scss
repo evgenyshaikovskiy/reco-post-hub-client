@@ -1,0 +1,22 @@
+@import 'variables';
+
+.topic-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  color: $hashtag-color;
+
+  .hashtag {
+    font-weight: 800;
+    cursor: pointer;
+
+    &:hover {
+      color: $hashtag-color-hover;
+    }
+  }
+}
+
+.wrapper {
+  padding: 5px;
+}

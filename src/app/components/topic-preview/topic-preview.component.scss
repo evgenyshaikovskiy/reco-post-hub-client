@@ -40,6 +40,15 @@
         color: black;
         font-weight: 400;
       }
+
+      .rating {
+        font-weight: 400;
+        color: black;
+        span {
+          font-weight: 600;
+          color: rgb(32, 31, 29);
+        }
+      }
     }
 
     .button-wrapper {

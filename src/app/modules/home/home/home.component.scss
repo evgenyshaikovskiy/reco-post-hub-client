@@ -1,0 +1,75 @@
+@import 'mixins';
+@import 'variables';
+
+.home-page {
+  display: flex;
+  flex-flow: column;
+
+  .header-top {
+    font-size: 30px;
+    font-weight: 600;
+    padding: 1rem;
+    background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+    @include gradient-text;
+  }
+
+  .sub-header-text {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0.5rem;
+  }
+
+  .all-hashtags {
+    margin-top: 50px;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    .header {
+      font-size: 28px;
+      font-weight: 600;
+      padding: 0.5rem;
+      background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+      @include gradient-text;
+    }
+  }
+
+  .personalized {
+    margin-top: 70px;
+
+    .hashtags {
+      .header {
+        font-size: 24px;
+        font-weight: 600;
+        padding: 0.5rem;
+      }
+      .spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+    
+      }
+    }
+
+    .topics {
+      .header {
+        font-size: 24px;
+        font-weight: 600;
+        padding: 0.5rem;
+      }
+      .spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .wrapper {
+        display: flex;
+        flex-flow: column;
+        gap: 10px;
+      }
+    }
+  }
+}

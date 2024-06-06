@@ -9,6 +9,7 @@
       } @else {
         <div class="action" routerLink="/settings">Settings</div>
         <div class="action" routerLink="/create-topic">Write topic</div>
+        <div *ngIf="isAdmin" class="action" routerLink="/review">Review</div>
         <div
           class="action"
           (click)="logOut()"
@@ -28,4 +29,45 @@
     tabindex="0"
     (keydown.enter)="op.toggle($event)"
     (click)="op.toggle($event)"></i>
+  @if (isLoggedIn) {
+    @if (notificationData$ | async; as data) {
+      <div
+        class="notification-count"
+        tabindex="0"
+        (keydown.enter)="opNotifications.toggle($event)"
+        (click)="opNotifications.toggle($event)">
+        {{ data.count }}
+      </div>
+    }
+  }
 </div>
+
+<p-overlayPanel #opNotifications>
+  <ng-template pTemplate="content">
+    <div class="user-bar__notifications">
+      @if (notificationData$ | async; as data) {
+        @for (item of data.notifications; track $index) {
+          <div class="wrapper">
+            <div class="notification">{{ item.text }}</div>
+            <div class="actions">
+              @if (item.url) {
+                <div class="action-wrapper">
+                  <p-button
+                    [text]="true"
+                    label="Go"
+                    (onClick)="goToUrl(item.url)"></p-button>
+                </div>
+                <div class="action-wrapper">
+                  <p-button
+                    [text]="true"
+                    label="Mark as read"
+                    (onClick)="markAsRead(item.id)"></p-button>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </ng-template>
+</p-overlayPanel>

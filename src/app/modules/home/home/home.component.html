@@ -1,1 +1,57 @@
-<p>home component</p>
+<div class="home-page">
+  <h1 class="header-top">Welcome to RecoPostHub</h1>
+  <p class="sub-header-text">Here you can create, read, and learn!</p>
+  <div class="all-hashtags">
+    <div class="header">You can read on these hashtags</div>
+    <div class="wrapper">
+      <app-hashtag-list
+        [hashtags]="hashtags"
+        [isPreview]="false"
+        [textSize]="20"></app-hashtag-list>
+    </div>
+  </div>
+
+  <div class="personalized" *ngIf="isAuthenticated">
+    <div class="hashtags">
+      <h3 class="header">
+        According to your taste you would prefer reading on the following
+        hashtags:
+      </h3>
+      @if (hashtagsLoading) {
+        <div class="spinner">
+          <p-progressSpinner
+            styleClass="w-5rem h-5rem"
+            strokeWidth="8"
+            fill="var(--surface-ground)"
+            animationDuration=".5s"></p-progressSpinner>
+        </div>
+      } @else {
+        <div class="wrapper">
+          <app-hashtag-list
+            [hashtags]="personalizedHashtags"
+            [isPreview]="false"
+            [textSize]="24"></app-hashtag-list>
+        </div>
+      }
+    </div>
+    <div class="topics">
+      <h3 class="header">Or you can immediately read on these topics:</h3>
+      @if (topicsLoading) {
+        <div class="spinner">
+          <p-progressSpinner
+            styleClass="w-5rem h-5rem"
+            strokeWidth="8"
+            fill="var(--surface-ground)"
+            animationDuration=".5s"></p-progressSpinner>
+        </div>
+      } @else {
+        <div class="wrapper">
+          @for (item of personalizedTopics; track $index) {
+            <app-topic-preview [topic]="item"></app-topic-preview>
+          }
+        </div>
+      }
+    </div>
+  </div>
+  <div class="not-autenticated" *ngIf="!isAuthenticated"></div>
+</div>

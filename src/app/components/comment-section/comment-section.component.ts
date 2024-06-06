@@ -13,15 +13,20 @@ import { Editor, NgxEditorModule, Toolbar } from 'ngx-editor';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { ButtonModule } from 'primeng/button';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter } from 'rxjs';
 import { extractTextFromHtml } from '../../core/utility/extract-text';
 import { ToastNotificationsService } from '../../core/services/toast-notifications.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-comment-section',
   standalone: true,
-  imports: [NgxEditorModule, ReactiveFormsModule, FormsModule, ButtonModule],
+  imports: [
+    NgxEditorModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    ButtonModule,
+  ],
   templateUrl: './comment-section.component.html',
   styleUrl: './comment-section.component.scss',
 })
@@ -30,10 +35,27 @@ export class CommentSectionComponent implements OnInit, OnDestroy {
   @Input({ required: true }) public comments!: IComment[];
   @Output() sendCommentEvent = new EventEmitter<{
     htmlContent: string;
-    mentions: string[];
+    textContent: string;
+  }>();
+
+  @Output() sendReplyEvent = new EventEmitter<{
+    htmlContent: string;
+    textContent: string;
+    parentCommentId: string;
   }>();
 
   public editor!: Editor;
+
+  private replyCommentId: string = '';
+  private usernameToReply: string = '';
+
+  private _destroyRef: DestroyRef = inject(DestroyRef);
+
+  public get replyData(): string {
+    return this.replyCommentId && this.usernameToReply
+      ? `Reply to: ${this.usernameToReply}`
+      : '';
+  }
 
   public toolbar: Toolbar = [
     ['bold', 'italic'],
@@ -46,9 +68,6 @@ export class CommentSectionComponent implements OnInit, OnDestroy {
   ];
 
   public commentControl = new FormControl('');
-  public mentions: string[] = [];
-
-  private _destroyRef: DestroyRef = inject(DestroyRef);
 
   public get isAuthenticated(): boolean {
     return this.authService.isLoggedIn();
@@ -59,41 +78,41 @@ export class CommentSectionComponent implements OnInit, OnDestroy {
     private readonly notificationService: ToastNotificationsService
   ) {}
 
-  public sendComment() {
-    const htmlContent = this.commentControl.getRawValue();
-    if (!htmlContent) {
-      this.notificationService.showNotification(
-        'warning',
-        "Can't send this comment."
-      );
-      return;
-    }
-
-    this.sendCommentEvent.emit({ htmlContent, mentions: [] });
-    this.commentControl.reset();
-    // const textContent = extractTextFromHtml(htmlContent);
-  }
-
   ngOnInit(): void {
     this.editor = new Editor({ keyboardShortcuts: true, history: true });
-
-    this.commentControl.valueChanges
-      .pipe(
-        filter(content => !!content),
-        takeUntilDestroyed(this._destroyRef)
-      )
-      .subscribe(value => {
-        const textContent = extractTextFromHtml(String(value));
-        const mentions = textContent
-          .split(' ')
-          .filter(word => word.startsWith('@'));
-        this.mentions = [...mentions];
-
-        console.log(textContent);
-      });
   }
 
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  public sendComment() {
+    const htmlContent = this.commentControl.getRawValue();
+    if (!htmlContent) {
+      this.notificationService.showNotification('warning', 'Comment is empty!');
+      return;
+    }
+
+    const textContent = extractTextFromHtml(htmlContent);
+    if (this.replyCommentId && this.usernameToReply) {
+      this.sendReplyEvent.emit({
+        htmlContent,
+        textContent,
+        parentCommentId: this.replyCommentId,
+      });
+    } else {
+      this.sendCommentEvent.emit({ htmlContent, textContent });
+    }
+    this.commentControl.reset();
+  }
+
+  public replyToComment(commentId: string, usernameToReply: string) {
+    this.replyCommentId = commentId;
+    this.usernameToReply = usernameToReply;
+  }
+
+  public cancelReply() {
+    this.replyCommentId = '';
+    this.usernameToReply = '';
   }
 }

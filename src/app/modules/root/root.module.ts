@@ -4,10 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
 import { authGuard } from '../../core/guards/auth.guard';
 import { adminGuard } from '../../core/guards/admin.guard';
+import { rootPageResolver } from './root.resolver';
 
 const routes: Routes = [
   {
     path: '',
+    resolve: { data: rootPageResolver },
     component: RootComponent,
     children: [
       {
@@ -65,6 +67,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('../topic-page/topic-page.module').then(
             m => m.TopicPageModule
+          ),
+      },
+      {
+        path: 'hashtag',
+        loadChildren: () =>
+          import(`../hashtag-topics/hashtag-topics.module`).then(
+            m => m.HashtagTopicsModule
           ),
       },
     ],

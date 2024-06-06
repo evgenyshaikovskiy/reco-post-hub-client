@@ -6,11 +6,15 @@
     tabindex="0">
     {{ topic.title }}
   </h2>
-  <div class="topic-hashtags">
+  <app-hashtag-list
+    [hashtags]="topic.hashtags"
+    [textSize]="14"
+    ></app-hashtag-list>
+  <!-- <div class="topic-hashtags">
     @for (item of topic.hashtags; track $index) {
       <div class="hashtag">#{{ item.name }}</div>
     }
-  </div>
+  </div> -->
   <div class="topic-metadata">
     <div class="metadata">
       <h4
@@ -20,8 +24,11 @@
         (keydown.enter)="navigateToAuthor()">
         By {{ topic.author.name }}
       </h4>
+      <p class="rating">
+        Rating: <span>{{ +topic.totalScore | rating }}</span>
+      </p>
       <p class="date-created">
-        {{ topic.createdAt | date: 'd, MMM, YYYY hh:mm' }}
+        Published {{ topic.createdAt | date: 'd MMM, YYYY HH:mm Z' }}
       </p>
     </div>
 

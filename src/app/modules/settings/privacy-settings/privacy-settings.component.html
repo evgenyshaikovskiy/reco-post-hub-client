@@ -1,0 +1,19 @@
+<div class="c-privacy-settings-dialog">
+  <div class="header-text">Adjust privacy settings</div>
+  <form [formGroup]="form" class="form-values">
+    @for (item of controlLabelMapping; track $index) {
+      <div class="checkbox-wrapper">
+        <p-checkbox
+          [binary]="true"
+          [formControlName]="item.controlName"
+          [value]="item.label"
+          [inputId]="item.controlName"></p-checkbox>
+        <label [for]="item.controlName">{{ item.label }}</label>
+      </div>
+    }
+
+    <div class="button-wrapper">
+      <p-button class="btn" label="Apply" (onClick)="onApply()"></p-button>
+    </div>
+  </form>
+</div>

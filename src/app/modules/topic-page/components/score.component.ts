@@ -41,7 +41,6 @@ export class ScoreComponent implements OnInit {
   }
 
   public hoverMouseOnElement(idx: number) {
-    console.log('hover', idx);
     this.stars = this.stars.map((star, arrayIdx) =>
       arrayIdx <= idx ? { ...star, filled: true } : { ...star, filled: false }
     );
@@ -83,21 +82,15 @@ export class ScoreComponent implements OnInit {
     }
 
     if (currentScore && currentScore.score !== score.score) {
-      this.scoreService
-        .updateRating({
-          score: score.score,
-          topicId: this.topicId,
-        })
+      this.scoreService.updateRating({ score: score.score, topicId: this.topicId})
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe(newScore => {
           this.notificationService.showNotification(
             'success',
             'You have updated your rating for this article.'
           );
-
           this.score$.next(newScore);
         });
-
       return;
     }
   }

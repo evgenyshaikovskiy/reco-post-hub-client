@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { UserSignUpDto } from '../interfaces/user-sign-up.interface';
-import { Observable, catchError, finalize, of } from 'rxjs';
+import { Observable, catchError, finalize, map, of } from 'rxjs';
 import { UserSignInDto } from '../interfaces/user-sign-in.interface';
 import { IAuthResult } from '../interfaces/auth-result.interface';
 import {
@@ -10,13 +10,15 @@ import {
   REFRESH_TOKEN_EXPIRES_AT_LOCAL_STORAGE_KEY,
   REFRESH_TOKEN_LOCAL_STORAGE_KEY,
 } from '../consts/keys';
-import { IUser } from '../interfaces/user.interface';
+import { IUser, UserRole } from '../interfaces/user.interface';
 import { LogOutDto, RefreshTokenDto } from '../interfaces/refresh-token.dto';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import moment from 'moment';
 import { AUTH_CONTEXT } from '../interceptors/intercept.context';
 import { Store } from '@ngrx/store';
 import { getUserInfo } from '../../store/selectors';
+import { setUserData } from '../../store/actions';
+import { NotificationService } from './notification.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -28,9 +30,16 @@ export class AuthService {
     return this._user ?? null;
   }
 
+  public get isAllowedToReviewTopic(): boolean {
+    return (
+      this._user?.role === UserRole.ADMIN || this._user?.role === UserRole.MOD
+    );
+  }
+
   constructor(
     private readonly _http: HttpClient,
-    private readonly store: Store
+    private readonly store: Store,
+    private readonly notificationService: NotificationService,
   ) {
     this.store
       .select(getUserInfo)
@@ -89,6 +98,7 @@ export class AuthService {
         takeUntilDestroyed(this._destroyRef),
         finalize(() => {
           this._clearAfterLogout();
+          this.notificationService.stopFetchingNotifications();
         })
       );
   }
@@ -138,6 +148,24 @@ export class AuthService {
 
   public fetchUser(): Observable<IUser> {
     return this._http.get<IUser>(`user`, { context: AUTH_CONTEXT });
+  }
+
+  public configure(): Observable<boolean> {
+    if (this.isLoggedIn() && !this.User) {
+      return this.fetchUser().pipe(
+        map(user => {
+          this.store.dispatch(setUserData({ data: user }));
+          this.notificationService.configure();
+          return true;
+        })
+      );
+    }
+
+    if (this.isLoggedIn() && this.User) {
+      this.notificationService.configure();
+    }
+
+    return of(false);
   }
 
   private _clearAfterLogout() {

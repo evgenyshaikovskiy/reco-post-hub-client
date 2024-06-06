@@ -1,0 +1,39 @@
+.c-privacy-settings-dialog {
+  max-height: 600px;
+  max-width: 700px;
+  min-width: 300px;
+  padding: 10px;
+  
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+
+  .header-text {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .form-values {
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+
+    .checkbox-wrapper {
+      display: flex;
+      gap: 20px;
+    }
+
+    .button-wrapper {
+      margin-top: 10px;
+      height: 30px;
+      width: 40%;
+    }
+  }
+}
+
+
+::ng-deep {
+  .p-dialog-title {
+    padding-left: 8px;
+  }
+}

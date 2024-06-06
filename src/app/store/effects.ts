@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { finalize, map, switchMap, tap } from 'rxjs';
 import { ToastNotificationsService } from '../core/services/toast-notifications.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../core/services/notification.service';
 
 @Injectable()
 export class ApplicationEffects {
@@ -31,6 +32,7 @@ export class ApplicationEffects {
                 'You were logged in successfully'
               );
               this.router.navigate(['']);
+              this.userNotificationService.configure();
               return signInSuccess();
             } else {
               this.notificationService.showNotification(
@@ -52,7 +54,6 @@ export class ApplicationEffects {
       switchMap(() =>
         this.authService.fetchUser().pipe(
           map(user => {
-            console.log('update user data', user);
             return setUserData({ data: user });
           })
         )
@@ -65,6 +66,7 @@ export class ApplicationEffects {
     private store: Store,
     private authService: AuthService,
     private notificationService: ToastNotificationsService,
+    private userNotificationService: NotificationService,
     private router: Router
   ) {}
 }

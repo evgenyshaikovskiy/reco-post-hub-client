@@ -20,20 +20,20 @@ export class SearchBarComponent implements OnInit {
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(
-        filter(prompt => !!prompt && prompt.trim().length > this.promptMinLength),
+        filter(
+          prompt => !!prompt && prompt.trim().length > this.promptMinLength
+        ),
         debounceTime(300),
         switchMap(correctedPrompt =>
           this.searchService.searchByPrompt(correctedPrompt)
         ),
         takeUntilDestroyed(this._destroyRef)
       )
-      .subscribe(searchResult => this._handleSearchResults(searchResult));
+      .subscribe(searchResult => {});
   }
 
   constructor(private readonly searchService: SearchService) {}
 
   public placeholderText = 'Search everywhere...';
-  private _handleSearchResults(res: unknown) {
-    console.log(res);
-  }
+  // private _handleSearchResults(_res: unknown) {}
 }

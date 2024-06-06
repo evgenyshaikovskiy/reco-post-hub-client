@@ -12,7 +12,7 @@ import {
   IUserProfile,
   SubscriptionType,
 } from '../../core/interfaces/user.interface';
-import { map, switchMap, tap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { ResourcesService } from '../../core/services/resources.service';
 // import { SpinnerService } from '../../core/services/spinner.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -69,7 +69,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
     this.activatedRoute.data
       .pipe(
         map(data => data['data'] as IUserProfile),
-        tap(data => console.log(data)),
         switchMap(profile =>
           this.resourceService.getFileByName(profile.userPictureId).pipe(
             map(blob => ({
