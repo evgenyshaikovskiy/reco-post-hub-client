@@ -5,6 +5,10 @@
   flex-flow: column;
   padding: 0 16px;
   width: 50%;
+
+  @media #{$mobile} {
+    width: 100%;
+  }
   gap: 10px;
 
   .topic-title {
@@ -22,6 +26,10 @@
     display: flex;
     justify-content: space-between;
     width: 50%;
+
+    @media #{$mobile} {
+      width: 100%;
+    }
 
     .metadata {
       display: flex;

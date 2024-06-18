@@ -1,3 +1,5 @@
+@import 'variables';
+
 .list-wrapper {
   padding-left: 30px;
 }
@@ -32,15 +34,19 @@
         flex-flow: column;
         gap: 10px;
         width: 20%;
+        @media #{$mobile} {
+          width: 100%;
+        }
 
         .button {
           height: 30px;
-          width: 60%;
+          width: 50%;
         }
       }
 
       .content {
         display: flex;
+
 
         .title__input {
           padding-left: 1rem;
@@ -48,6 +54,9 @@
 
           min-height: 2rem;
           width: 50%;
+          @media #{$mobile} {
+            width: 100%;
+          }
 
           border: 1px solid black !important;
         }

@@ -88,6 +88,8 @@ export class HashtagTopicsComponent implements OnInit {
   public addHashtag(name: string) {
     if (!this.encodedHashtags$.getValue().includes(name)) {
       this.encodedHashtags$.next(`${this.encodedHashtags$.getValue()}&${name}`);
+      this.searchControl.reset();
+      this.searchResults = [];
     }
   }
 }

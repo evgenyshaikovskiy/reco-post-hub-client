@@ -1,6 +1,12 @@
+@import 'variables';
+
 .settings-wrapper {
   display: flex;
   gap: 20px;
+
+  @media #{$mobile} {
+    flex-direction: column;
+  }
 
   .picture-wrapper {
     display: flex;
@@ -9,11 +15,19 @@
     gap: 10px;
     .picture {
       display: flex;
+      @media #{$mobile} {
+        justify-content: center;
+      }
       img {
         object-fit: cover;
         border-radius: 50%;
         height: 300px;
         width: 300px;
+
+        @media #{$mobile} {
+          height: 200px;
+          width: 200px;
+        }
       }
     }
 
@@ -52,6 +66,7 @@
     .value {
       font-size: large;
       font-weight: 500;
+      width: fit-content;
     }
 
     .bio {
@@ -81,10 +96,16 @@
 
       .privacy-settings-button-wrapper {
         width: 30%;
+        @media #{$mobile} {
+          width: 40%;
+        }
       }
 
       .change-password-button-wrapper {
         width: 30%;
+        @media #{$mobile} {
+          width: 40%;
+        }
       }
     }
   }

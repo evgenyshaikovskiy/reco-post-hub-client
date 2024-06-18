@@ -7,7 +7,7 @@
         <ng-container
           *ngTemplateOutlet="
             commentTemplate;
-            context: { comment: comment, level: 0 }
+            context: { comment: comment, level: 0, show: false }
           "></ng-container>
 
         <!-- <div class="comment">
@@ -69,13 +69,13 @@
   }
 </div>
 
-<ng-template #commentTemplate let-comment="comment" let-level="level">
+<ng-template #commentTemplate let-comment="comment" let-level="level" let-show="show">
   <div class="comment" [style.marginLeft.px]="level * 10">
     <div class="comment-author">
       <!-- {{ comment | json }} -->
       <div class="username">{{ comment.author.username }}</div>
       <div class="date">
-        {{ comment.createdAt | date: 'd MMM, YYYY HH:mm Z' }}
+        {{ comment.createdAt | date: 'd MMM, YYYY HH:mm' }}
       </div>
     </div>
     <div class="comment-content" [innerHTML]="comment.htmlContent"></div>
@@ -90,13 +90,27 @@
         </div>
       }
     </div>
-    <div class="nested-comments" *ngIf="comment.childComments">
+    <div class="nested-comments" *ngIf="(comment.childComments && level < 1) || show">
       <ng-container *ngFor="let childComment of comment.childComments">
         <ng-container
           *ngTemplateOutlet="
             commentTemplate;
-            context: { comment: childComment, level: level + 1 }
+            context: { comment: childComment, level: level + 1, show: false }
           "></ng-container>
+      </ng-container>
+    </div>
+    <div class="nested-comments" *ngIf="comment.childComments && level >=1 && !show">
+      <div class="button-wrapper" *ngIf="!showNested[comment.id]">
+        <p-button label="Show more" (onClick)="showMore(comment.id)"></p-button>
+      </div>
+      <ng-container *ngIf="showNested[comment.id]">
+        <ng-container *ngFor="let childComment of comment.childComments">
+          <ng-container
+            *ngTemplateOutlet="
+              commentTemplate;
+              context: { comment: childComment, level: level + 1, show: true }
+            "></ng-container>
+        </ng-container>
       </ng-container>
     </div>
   </div>

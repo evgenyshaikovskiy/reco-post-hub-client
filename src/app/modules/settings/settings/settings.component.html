@@ -30,10 +30,16 @@
     <p class="value">Role: {{ profileInfo?.role }}</p>
     <p class="value">Email: {{ profileInfo?.email }}</p>
     <p class="value">Username: {{ profileInfo?.username }}</p>
-    <p class="value" pTooltip="Updates every hour" tooltipPosition="top">
+    <p
+      class="value"
+      pTooltip="Updates every 12 hours. Shows how much user has contributed to platform."
+      tooltipPosition="top">
       Rating: {{ profileInfo?.rating }}
     </p>
-    <p class="value" pTooltip="Updates every hour" tooltipPosition="top">
+    <p
+      class="value"
+      pTooltip="Updates every 12 hours. Shows how community feels about this user."
+      tooltipPosition="top">
       Karma: {{ profileInfo?.karma }}
     </p>
     <div class="bio">

@@ -11,7 +11,7 @@ import { AUTH_INTERCEPT } from '../interceptors/intercept.context';
 
 @Injectable({ providedIn: 'root' })
 export class TopicPageService {
-  private _longPollingTimer: number = 5000;
+  private _longPollingTimer: number = 60_000;
 
   constructor(private readonly http: HttpClient) {}
 

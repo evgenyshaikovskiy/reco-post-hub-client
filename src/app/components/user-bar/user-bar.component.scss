@@ -2,9 +2,8 @@
 @import 'mixins';
 
 :root ::ng-deep {
-  .notificationOverlay {
-    right: 0rem !important;
-    left: unset !important;
+  .p-overlaypanel {
+    left: 10px !important;
   }
 }
 

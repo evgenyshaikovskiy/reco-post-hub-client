@@ -49,6 +49,25 @@
 
     @include floating-input-label-styles;
 
+
+    .forgot-password-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-left: 10px;
+
+      &__link {
+        text-decoration: none;
+        padding: 1rem;
+        @include text-size-weight-height(1rem, 600, 120%);
+
+        &:hover {
+          cursor: pointer;
+          color: $red-color;
+        }
+      }
+    }
     
   }
 }

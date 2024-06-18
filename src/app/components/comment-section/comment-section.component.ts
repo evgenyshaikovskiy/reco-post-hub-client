@@ -68,6 +68,7 @@ export class CommentSectionComponent implements OnInit, OnDestroy {
   ];
 
   public commentControl = new FormControl('');
+  public showNested: { [key: string]: boolean } = {};
 
   public get isAuthenticated(): boolean {
     return this.authService.isLoggedIn();
@@ -84,6 +85,10 @@ export class CommentSectionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  public showMore(commentId: string): void {
+    this.showNested[commentId] = true;
   }
 
   public sendComment() {

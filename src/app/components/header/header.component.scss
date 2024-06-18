@@ -28,6 +28,10 @@
     @include flex-row-align-center;
     gap: 1rem;
 
+    @media #{$mobile} {
+      display: none;
+    }
+
     .link {
       color: $dark-color;
       text-decoration: none;

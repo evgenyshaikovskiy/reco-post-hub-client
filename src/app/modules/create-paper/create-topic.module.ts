@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AccordionModule } from 'primeng/accordion';
 import { CreateTopicService } from './create-topic.service';
 import { TopicContentComponent } from '../../components/topic-content/topic-content.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 const routes: Routes = [{ path: '', component: CreateTopicComponent }];
 
@@ -29,6 +30,7 @@ const routes: Routes = [{ path: '', component: CreateTopicComponent }];
     FormsModule,
     AccordionModule,
     ReactiveFormsModule,
+    TooltipModule,
     RouterModule.forChild(routes),
   ],
   providers: [CreateTopicService],

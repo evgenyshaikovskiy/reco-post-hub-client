@@ -28,7 +28,15 @@
     }
 
     .information {
-
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      p {
+        font-size: large;
+        font-weight: 500;
+        width: fit-content;
+      }
     }
   }
 

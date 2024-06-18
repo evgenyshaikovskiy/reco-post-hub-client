@@ -26,11 +26,13 @@ export class HashtagListComponent implements OnInit {
 
   @Input() isPreview: boolean = false;
 
+  @Input() color?: string;
+
   private _userHashtags: ISubscription[] = [];
   private destroyRef = inject(DestroyRef);
 
   public get style(): string {
-    return `font-size: ${this.textSize}px;`;
+    return `font-size: ${this.textSize}px;${this.color ? `color: ${this.color};` : ''}`;
   }
 
   public get isAuthenticated(): boolean {

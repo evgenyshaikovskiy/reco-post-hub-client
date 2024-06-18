@@ -2,6 +2,9 @@
 @import 'variables';
 
 :host {
+  @media #{$mobile} {
+    display: none;
+  }
   @include flex-row-align-center;
   margin-bottom: 1rem;
 

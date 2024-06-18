@@ -41,6 +41,8 @@
               <div class="buttons">
                 <div class="button">
                   <p-button
+                    pTooltip="Receive suggestion about which hashtags are applicable to this topic"
+                    tooltipPosition="top"
                     class="button"
                     label="{{
                       hashtags.length === 0 ? 'Get hashtags' : 'Update hashtags'
@@ -83,6 +85,9 @@
               <h5 class="title">Summarization</h5>
               <div class="button">
                 <p-button
+                  pTooltip="Receive summarization on current input"
+                  tooltipPosition="top"
+
                   class="button"
                   label="{{
                     summarization ? 'Update summarization' : 'Get summarization'
@@ -109,6 +114,8 @@
     <div class="button">
       <p-button
         pButton
+        pTooltip="Topic is send to review"
+        tooltipPosition="top"
         pRipple
         label="Create"
         class="create__button"
@@ -118,6 +125,8 @@
     </div>
     <div class="button">
       <p-button
+        pTooltip="Preview topic as if it was already published"
+        tooltipPosition="top"
         pButton
         pRipple
         label="Preview"

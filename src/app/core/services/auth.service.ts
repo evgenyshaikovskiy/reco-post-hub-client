@@ -19,6 +19,7 @@ import { Store } from '@ngrx/store';
 import { getUserInfo } from '../../store/selectors';
 import { setUserData } from '../../store/actions';
 import { NotificationService } from './notification.service';
+import { SubscriptionService } from './subscription.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -40,6 +41,7 @@ export class AuthService {
     private readonly _http: HttpClient,
     private readonly store: Store,
     private readonly notificationService: NotificationService,
+    private readonly subscriptionService: SubscriptionService,
   ) {
     this.store
       .select(getUserInfo)
@@ -101,6 +103,14 @@ export class AuthService {
           this.notificationService.stopFetchingNotifications();
         })
       );
+  }
+
+  public checkEmail(email: string): Observable<string> {
+    return this._http
+      .get<string>(`validator/email/${email}`, {
+        responseType: 'text' as 'json',
+      })
+      .pipe(takeUntilDestroyed(this._destroyRef));
   }
 
   public setSession(authResult: IAuthResult) {

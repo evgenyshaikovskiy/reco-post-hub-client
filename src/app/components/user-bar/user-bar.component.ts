@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AuthService } from '../../core/services/auth.service';

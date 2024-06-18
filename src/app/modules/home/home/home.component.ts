@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
   public personalizedTopics: ITopic[] = [];
   public personalizedHashtags$: BehaviorSubject<IHashtag[]> =
     new BehaviorSubject<IHashtag[]>([] as IHashtag[]);
-  // public personalizedHashtags: IHashtag[] = [];
 
   public get personalizedHashtags(): IHashtag[] {
     return this.personalizedHashtags$.getValue();

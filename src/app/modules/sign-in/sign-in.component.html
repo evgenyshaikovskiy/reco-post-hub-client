@@ -53,6 +53,18 @@
       }
     </div>
 
+    <div
+      class="forgot-password-section"
+      *ngIf="passwordEntryIsIncorrect$ | async">
+      <a
+        class="forgot-password-section__link"
+        tabindex="0"
+        (click)="_navigateToForgotPassword()"
+        (keydown.enter)="_navigateToForgotPassword()"
+        >Forgot password?</a
+      >
+    </div>
+
     <div class="button-wrapper">
       <p-button
         type="submit"

@@ -14,6 +14,28 @@
       </div>
 
       <div class="information">
+        @if (profile.settings.showBio && profile.bio) {
+          <p>Bio: {{ profile.bio }}</p>
+        }
+        @if (profile.settings.showComments) {
+          <p>Comments</p>
+        }
+        @if (profile.settings.showHashtagSubscriptions) {
+          <div>HASHTAGS</div>
+        }
+
+        @if (profile.settings.showEmail) {
+          <p>Email: {{ profile.email }}</p>
+        }
+
+        @if (profile.settings.showKarma) {
+          <p>Karma: {{ profile.karma }}</p>
+        }
+
+        @if (profile.settings.showRating) {
+          <p>Rating: {{ profile.rating }}</p>
+        }
+
         <!-- topics that user is writed -->
       </div>
     </div>

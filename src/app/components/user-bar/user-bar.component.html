@@ -9,7 +9,10 @@
       } @else {
         <div class="action" routerLink="/settings">Settings</div>
         <div class="action" routerLink="/create-topic">Write topic</div>
+        <div class="action">❤ Hashtag</div>
+        <div class="action">❤ User</div>
         <div *ngIf="isAdmin" class="action" routerLink="/review">Review</div>
+        <div *ngIf="isAdmin" class="action" routerLink="/admin-panel">Manage users</div>
         <div
           class="action"
           (click)="logOut()"
@@ -42,8 +45,8 @@
   }
 </div>
 
-<p-overlayPanel #opNotifications>
-  <ng-template pTemplate="content">
+<p-overlayPanel #opNotifications >
+  <ng-template pTemplate="content" class="notification">
     <div class="user-bar__notifications">
       @if (notificationData$ | async; as data) {
         @for (item of data.notifications; track $index) {

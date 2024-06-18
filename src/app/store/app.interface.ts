@@ -12,11 +12,13 @@ export interface IAppState {
 export interface ISharedState {
   currentUserData?: IUser;
   spinnerState: boolean;
+  signInFailed: boolean;
 }
 
 export const initialState: ISharedState = {
   currentUserData: undefined,
   spinnerState: false,
+  signInFailed: false,
 };
 
 export const initialAppState: IApp = {

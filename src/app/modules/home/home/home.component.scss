@@ -5,12 +5,50 @@
   display: flex;
   flex-flow: column;
 
-  .header-top {
+  .not-autenticated {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 30px;
-    font-weight: 600;
+
+    @media #{$mobile} {
+      font-size: 24px;
+    }
+
+    a {
+      margin-left: 5px;
+      color: $dark-color;
+      font-weight: 700;
+      text-decoration: none;
+    }
+  }
+
+  .header-top {
+    font-size: 36px;
+    @media #{$mobile} {
+      font-size: 30px;
+    }
+
+    font-weight: 800;
     padding: 1rem;
     background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
     @include gradient-text;
+  }
+
+  .header-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 2rem;
+
+    .text {
+      font-size: 24px;
+      font-weight: 500;
+
+      @media #{$mobile} {
+        font-size: 18px;
+      }
+    }
   }
 
   .sub-header-text {
@@ -25,22 +63,37 @@
     flex-flow: column;
     gap: 20px;
     .header {
-      font-size: 28px;
+      font-size: 30px;
+      @media #{$mobile} {
+        font-size: 24px;
+      }
       font-weight: 600;
       padding: 0.5rem;
-      background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
-      @include gradient-text;
+    }
+
+    .wrapper {
+      max-height: 400px;
+      padding: 1rem;
     }
   }
 
   .personalized {
     margin-top: 70px;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
 
     .hashtags {
+      display: flex;
+      flex-flow: column;
+      gap: 20px;
       .header {
-        font-size: 24px;
+        font-size: 30px;
         font-weight: 600;
         padding: 0.5rem;
+        @media #{$mobile} {
+          font-size: 24px;
+        }
       }
       .spinner {
         display: flex;
@@ -50,15 +103,21 @@
       .wrapper {
         display: flex;
         justify-content: center;
-    
+        padding: 1rem;
       }
     }
 
     .topics {
+      display: flex;
+      flex-flow: column;
+      gap: 20px;
       .header {
-        font-size: 24px;
+        font-size: 30px;
         font-weight: 600;
         padding: 0.5rem;
+        @media #{$mobile} {
+          font-size: 24px;
+        }
       }
       .spinner {
         display: flex;

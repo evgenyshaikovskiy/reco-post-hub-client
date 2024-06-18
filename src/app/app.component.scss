@@ -4,3 +4,45 @@
     height: 100% !important;
   }
 }
+
+::ng-deep {
+  .p-tooltip .p-tooltip-text {
+    padding: 0.25rem;
+  }
+}
+
+// ::ng-deep {
+//   .p-overlaypanel {
+//     left: calc(100vw - 300px) !important;
+
+//     .user-bar__notifications {
+//       padding: 0.7rem;
+//       width: 300px;
+//       max-height: 400px;
+//       overflow: auto;
+//       display: flex;
+//       flex-direction: column;
+//       gap: 0.8rem;
+
+//       .wrapper {
+//         display: flex;
+//         flex-direction: column;
+//         gap: 0.2rem;
+
+//         .notification {
+//           font-weight: 700;
+//         }
+
+//         .actions {
+//           display: flex;
+//           justify-content: space-around;
+
+//           .action-wrapper {
+//             width: 7rem;
+//             height: 1rem;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { UserRole } from '../interfaces/user.interface';
 import { ToastNotificationsService } from '../services/toast-notifications.service';
@@ -14,8 +14,8 @@ export const adminGuard: CanActivateFn = ():
   const router = inject(Router);
   const notificationService = inject(ToastNotificationsService);
 
-  if (authService.isLoggedIn()) {
-    return authService.fetchUser().pipe(
+  if (authService.isLoggedIn() && authService.User) {
+    return of(authService!.User).pipe(
       map(currentUser => {
         const isModOrAdmin =
           currentUser.role === UserRole.ADMIN ||

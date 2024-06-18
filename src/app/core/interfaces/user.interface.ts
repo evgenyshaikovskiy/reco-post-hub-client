@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ICredentials } from './credentials.interface';
-import { IComment, IScore, ITopic } from './request-interfaces';
+import { IComment, IHashtag, IScore, ITopic } from './request-interfaces';
 
 export interface IUser {
   id: string;
@@ -15,6 +15,10 @@ export interface IUser {
   settings: ISettings;
   userPictureId: string;
   subscriptions: ISubscription[];
+
+  hashtagsSub: IHashtag[];
+  authorSub: ITopic[];
+  
   topics: ITopic[];
   scores: IScore[];
   role: UserRole;
@@ -61,6 +65,7 @@ export interface IUserProfile {
   createdAt: Date;
   updatedAt: Date;
   userPictureId: string;
+  settings: ISettings;
   
   bio?: string;
   email?: string;

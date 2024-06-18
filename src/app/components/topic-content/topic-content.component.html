@@ -3,7 +3,7 @@
   <div class="topic-meta">
     <h4 class="author">By {{ user.name }}</h4>
     <p class="date-created">
-      {{ createdAt | date: 'd MMM, YYYY HH:mm Z' }}
+      {{ createdAt | date: 'd MMM, YYYY HH:mm' }}
     </p>
     <app-hashtag-list
       [hashtags]="hashtags"

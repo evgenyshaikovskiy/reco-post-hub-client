@@ -1,10 +1,15 @@
 <div class="home-page">
   <h1 class="header-top">Welcome to RecoPostHub</h1>
-  <p class="sub-header-text">Here you can create, read, and learn!</p>
+  <div class="header-info">
+    <p class="text">Here is glimpse what we all about:</p>
+    <p class="text"><span>💬</span>Explore more than 100 engaging topics</p>
+    <p class="text"><span>📋</span>Discover over 500 helpful tags to navigate your interests</p>
+  </div>
   <div class="all-hashtags">
-    <div class="header">You can read on these hashtags</div>
+    <div class="header">Here are some of the tags</div>
     <div class="wrapper">
       <app-hashtag-list
+        color="#003082"
         [hashtags]="hashtags"
         [isPreview]="false"
         [textSize]="20"></app-hashtag-list>
@@ -14,8 +19,8 @@
   <div class="personalized" *ngIf="isAuthenticated">
     <div class="hashtags">
       <h3 class="header">
-        According to your taste you would prefer reading on the following
-        hashtags:
+        According to your preferences you would enjoy reading on the following
+        tags:
       </h3>
       @if (hashtagsLoading) {
         <div class="spinner">
@@ -28,9 +33,10 @@
       } @else {
         <div class="wrapper">
           <app-hashtag-list
+            color="#003082"
             [hashtags]="personalizedHashtags"
             [isPreview]="false"
-            [textSize]="24"></app-hashtag-list>
+            [textSize]="20"></app-hashtag-list>
         </div>
       }
     </div>
@@ -53,5 +59,7 @@
       }
     </div>
   </div>
-  <div class="not-autenticated" *ngIf="!isAuthenticated"></div>
+  <div class="not-autenticated" *ngIf="!isAuthenticated">
+    For better experience we suggest you to<a routerLink="sign-up">sign up</a>
+  </div>
 </div>

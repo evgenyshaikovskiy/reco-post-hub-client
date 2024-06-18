@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './app.interface';
-import { setSpinnerState, setUserData } from './actions';
+import { setSpinnerState, setUserData, signInFailed, signInSuccess } from './actions';
 
 export const appReducer = createReducer(
   initialState,
@@ -11,5 +11,13 @@ export const appReducer = createReducer(
   on(setUserData, (state, action) => ({
     ...state,
     currentUserData: action.data,
+  })),
+  on(signInSuccess, (state) => ({
+    ...state,
+    signInFailed: false,
+  })),
+  on(signInFailed, (state) => ({
+    ...state,
+    signInFailed: true,
   }))
 );

@@ -31,6 +31,10 @@
       flex-flow: column;
       gap: 5px;
 
+      .button-wrapper {
+        width: 6rem;
+      }
+
       .comment-author {
         display: flex;
         flex-flow: column;

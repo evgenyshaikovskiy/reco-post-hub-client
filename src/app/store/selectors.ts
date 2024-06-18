@@ -14,3 +14,8 @@ export const getUserInfo = createSelector(
   appState,
   state => state.currentUserData
 );
+
+export const getSignInFailed = createSelector(
+  appState,
+  state => state.signInFailed,
+);

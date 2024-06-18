@@ -1,5 +1,11 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormBuilder,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import {
   NAME_REGEX,
   PASSWORD_REGEX,
@@ -10,7 +16,7 @@ import { markAllAsDirty } from '../../core/utility';
 import { UserSignUpDto } from '../../core/interfaces/user-sign-up.interface';
 import { AuthService } from '../../core/services/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize } from 'rxjs';
+import { finalize, map, Observable } from 'rxjs';
 import { ToastNotificationsService } from '../../core/services/toast-notifications.service';
 import { Router } from '@angular/router';
 
@@ -40,7 +46,11 @@ export class SignUpComponent {
         Validators.pattern(SLUG_REGEX),
       ],
     ],
-    email: ['', [Validators.required, Validators.email]],
+    email: [
+      '',
+      [Validators.required, Validators.email],
+      [EmailValidator.createValidator(this.authService)],
+    ],
     password: this._fb.nonNullable.group(
       {
         password: [
@@ -109,5 +119,21 @@ export class SignUpComponent {
 
   private _resetForm() {
     this.form.reset();
+  }
+}
+
+export class EmailValidator {
+  static createValidator(authService: AuthService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors> => {
+      return authService.checkEmail(control.value).pipe(
+        map(result => {
+          if (result === 'true') {
+            return { emailExists: true };
+          } else {
+            return { emailExists: null };
+          }
+        })
+      );
+    };
   }
 }

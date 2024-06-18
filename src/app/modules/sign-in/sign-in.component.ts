@@ -5,6 +5,7 @@ import { UserSignInDto } from '../../core/interfaces/user-sign-in.interface';
 import { markAllAsDirty } from '../../core/utility';
 import { Store } from '@ngrx/store';
 import { signIn } from '../../store/actions';
+import { getSignInFailed } from '../../store/selectors';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,6 +20,8 @@ export class SignInComponent {
   });
 
   public isLoading: boolean = false;
+
+  public passwordEntryIsIncorrect$ = this.store.select(getSignInFailed);
 
   constructor(
     private readonly _fb: FormBuilder,
@@ -41,5 +44,9 @@ export class SignInComponent {
 
   protected _navigateToSignUp() {
     this.router.navigate(['sign-up']);
+  }
+
+  protected _navigateToForgotPassword(){ 
+    this.router.navigate(['forgot-password']);
   }
 }

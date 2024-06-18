@@ -4,6 +4,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  
+  @media #{$mobile} {
+    max-height: 300px;
+    overflow: auto;
+  }
 
   color: $hashtag-color;
 
@@ -12,7 +17,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $hashtag-color-hover;
+      color: $hashtag-color-hover !important;
     }
   }
 }

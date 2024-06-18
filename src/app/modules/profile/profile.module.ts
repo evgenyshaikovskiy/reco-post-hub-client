@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { profilePageResolver } from './profile.resolver';
 import { profilePageGuard } from './profile-guard';
 import { ButtonModule } from 'primeng/button';
+import { HashtagListComponent } from '../../components/hashtag-list/hashtag-list.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ProfileComponent],
-  imports: [CommonModule, ButtonModule, RouterModule.forChild(routes)],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    RouterModule.forChild(routes),
+    HashtagListComponent,
+  ],
   providers: [],
 })
 export class ProfileModule {}

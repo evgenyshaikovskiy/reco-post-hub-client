@@ -83,6 +83,9 @@
           @if (email.dirty && email.hasError('email')) {
             <div class="field__error">Email is invalid</div>
           }
+          @if (email.dirty && email.hasError('emailExists')) {
+            <div class="field__error">Email is already in use</div>
+          }
         </ng-container>
       }
     </div>

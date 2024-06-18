@@ -20,7 +20,7 @@ import { ISettings } from '../../../core/interfaces/user.interface';
 export class PrivacySettingsDialogComponent {
   public form: FormGroup = new FormGroup({
     showBio: new FormControl<boolean>(this.config.data.values.showBio),
-    showEmail: new FormControl<boolean>(this.config.data.values.showBio),
+    showEmail: new FormControl<boolean>(this.config.data.values.showEmail),
     showUserSubscriptions: new FormControl<boolean>(
       this.config.data.values.showUserSubscriptions
     ),
